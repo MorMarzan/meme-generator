@@ -34,14 +34,15 @@
             </div>
         </section>
 
-        <section hidden class="editor">
+        <section class="editor hide">
             <div class="canvas-container">
                 <canvas width="400" height="400" style="outline: 1px solid black">
                 </canvas>
             </div>
             <div class="control-panel">
-                <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)">
-                <input type="color" onchange="onSetColor(this.value)" value="#FFFFFF">
+                <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)" onfocus="onSelectLine(0)">
+                <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)" onfocus="onSelectLine(1)">
+                <input type="color" oninput="onSetColor(this.value)" value="#FFFFFF">
                 <button class="btn" onclick="onSetTxtSize(1)">A+</button>
                 <button class="btn" onclick="onSetTxtSize(-1)">A-</button>
                 <a href="#" class="btn download" onclick="downloadImg(this)" download="my-meme.jpg">Download</a>

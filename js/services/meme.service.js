@@ -8,6 +8,11 @@ var gMeme = {
             txt: 'I Love you',
             size: 40,
             color: '#FFFFFF'
+        },
+        {
+            txt: 'I Love you more',
+            size: 30,
+            color: '#FFFFFF'
         }
     ]
 }
@@ -18,7 +23,11 @@ function getMeme() {
 
 /* user inputs funcs */
 function setLineTxt(newTxt) {
-    gMeme.lines[selectedLineIdx].txt = newTxt
+    gMeme.lines[gMeme.selectedLineIdx].txt = newTxt
+}
+
+function selectLine(lineNum) {
+    gMeme.selectedLineIdx = lineNum
 }
 
 function setImg(imgId) {

@@ -19,3 +19,7 @@ a {
     color: var(--clrPrimary2); 
     text-decoration: none;
 }
+
+.hide {
+    display: none !important;
+}

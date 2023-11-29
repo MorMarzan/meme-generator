@@ -8,19 +8,32 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
 }
 /* render and its helper funcs */
+//needs optimization!!
 function renderMeme() {
     const canvasWidthCenter = gElCanvas.width / 2
     const canvas20PerTop = gElCanvas.height * 0.2
+    const canvas80PerTop = gElCanvas.height * 0.8
     const currMeme = getMeme()
     
     const currUrl = getImgById(currMeme.selectedImgId).url
-    const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
+    const eltxtEditors = document.querySelectorAll(".editor .control-panel input[type=text]")
     const elColorInput = document.querySelector(".editor .control-panel input[type=color]")
     
     const currMemeOpt = {
-        txt: currMeme.lines[currMeme.selectedLineIdx].txt,
-        color: currMeme.lines[currMeme.selectedLineIdx].color,
-        size: currMeme.lines[currMeme.selectedLineIdx].size
+        txt: currMeme.lines[0].txt,
+        color: currMeme.lines[0].color,
+        size: currMeme.lines[0].size,
+        x: canvasWidthCenter,
+        y: canvas20PerTop,
+        isSelected: (currMeme.selectedLineIdx === 0)
+    }
+    const currMemeOpt1 = {
+        txt: currMeme.lines[1].txt,
+        color: currMeme.lines[1].color,
+        size: currMeme.lines[1].size,
+        x: canvasWidthCenter,
+        y: canvas80PerTop,
+        isSelected: (currMeme.selectedLineIdx === 1)
     }
 
     const elImg = new Image()
@@ -28,26 +41,45 @@ function renderMeme() {
 
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-        drawText(currMemeOpt, canvasWidthCenter, canvas20PerTop)
-        eltxtEditor.value = currMemeOpt.txt
+        drawText(currMemeOpt)
+        drawText(currMemeOpt1)
+        eltxtEditors[0].value = currMemeOpt.txt
+        eltxtEditors[1].value = currMemeOpt1.txt
         elColorInput.value = currMemeOpt.color
     }
 }
 
-function drawText(memeOpt, x, y) {
+function drawText(memeOpt) {
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = memeOpt.color
     gCtx.font = `${memeOpt.size}px Impact`
     gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
-    gCtx.fillText(memeOpt.txt, x, y)
-    gCtx.strokeText(memeOpt.txt, x, y)
+    gCtx.fillText(memeOpt.txt, memeOpt.x, memeOpt.y)
+    gCtx.strokeText(memeOpt.txt, memeOpt.x, memeOpt.y)
+
+    if (memeOpt.isSelected) drawRect(memeOpt.x, memeOpt.y)
+}
+
+function drawRect(x, y) {
+    gCtx.beginPath()
+    gCtx.lineWidth = 2
+
+    gCtx.strokeStyle = 'white'
+    gCtx.strokeRect(x, y, 80, 40)
+    // gCtx.rect(x, y, 120, 120)
+    // gCtx.stroke()
 }
 
 /* user inputs funcs */
 function onSetLineTxt(newTxt) {
     setLineTxt(newTxt)
+    renderMeme()
+}
+
+function onSelectLine(lineNum) {
+    selectLine(lineNum)
     renderMeme()
 }
 
@@ -58,8 +90,10 @@ function onImgSelect(imgId) {
 
     const elEditor = document.querySelector(".editor")
     const elGallery = document.querySelector(".gallery")
-    elGallery.hidden = true;
-    elEditor.hidden = false;
+    // elGallery.hidden = true;
+    // elEditor.hidden = false;
+    elGallery.classList.add("hide")
+    elEditor.classList.remove("hide")
 }
 
 function onSetColor(color) {
