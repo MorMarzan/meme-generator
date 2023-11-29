@@ -1,0 +1,5 @@
+.gallery-layout .imgs-container {
+    display: grid;
+    grid-template-columns: repeat(5, 100px);
+    gap: 20px;
+}
