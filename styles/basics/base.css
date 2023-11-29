@@ -20,6 +20,6 @@ a {
     text-decoration: none;
 }
 
-.hide {
-    display: none !important;
+body .hide {
+    display: none;
 }
