@@ -18,7 +18,7 @@ function renderMeme() {
 
     const elImg = new Image()
     elImg.src = '/img/2.jpg'
-    
+
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
         drawText(currMemeTxt, canvasWidthCenter, canvas20PerTop)
@@ -41,4 +41,8 @@ function drawText(text, x, y) {
 function onSetLineTxt(newTxt) {
     setLineTxt(newTxt)
     renderMeme()
+}
+
+function onImgSelect(imgId) {
+    console.log(imgId)
 }
