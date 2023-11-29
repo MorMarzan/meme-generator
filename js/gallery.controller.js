@@ -1,3 +1,5 @@
 'use strict'
 
-console.log('gallery c')
+function renderGallery() {
+    const imgs = getImgs()
+}
