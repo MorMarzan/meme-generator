@@ -22,7 +22,24 @@
         <!-- <button class="btn-toggle-menu" onclick="toggleMenu()">☰</button> -->
     </header>
 
-    <main class="main-content card-layout">
+    <main class="main-content">
+
+        <section class="gallery">
+           <div class="control-panel">
+            <label>
+                <input type="text" placeholder="Search">
+            </label>
+           </div> 
+        </section>
+
+        <section class="editor">
+            <div class="control-panel"></div>
+            <div class="canvas-container">
+                <canvas id="my-canvas" width="400" height="400" style="outline: 1px solid black">
+                </canvas>
+            </div>
+        </section>
+
     </main>
 
     <footer class="main-footer flex space-between align-center">
