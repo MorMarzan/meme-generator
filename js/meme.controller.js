@@ -6,7 +6,6 @@ let gCtx
 function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
-    // renderMeme()
 }
 
 function renderMeme() {
@@ -47,4 +46,9 @@ function onImgSelect(imgId) {
     // console.log(imgId)
     setImg(imgId)
     renderMeme()
+
+    const elEditor = document.querySelector(".editor")
+    const elGallery = document.querySelector(".gallery")
+    elGallery.hidden = true;
+    elEditor.hidden = false;
 }
