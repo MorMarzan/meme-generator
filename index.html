@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
-<body class="main-layout">
-
+<body class="main-layout" onload="onInit()">
 
     <header class="main-header flex space-between align-center">
         <div class="logo">Meme Generator</div>
@@ -35,7 +34,7 @@
         <section class="editor">
             <div class="control-panel"></div>
             <div class="canvas-container">
-                <canvas id="my-canvas" width="400" height="400" style="outline: 1px solid black">
+                <canvas width="400" height="400" style="outline: 1px solid black">
                 </canvas>
             </div>
         </section>
