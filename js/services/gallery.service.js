@@ -3,6 +3,11 @@
 var gImgs = [
     {
         id: 1,
+        url: 'img/1.jpg',
+        keywords: ['funny', 'politcs']
+    },
+    {
+        id: 2,
         url: 'img/2.jpg',
         keywords: ['sweet', 'dog']
     },
