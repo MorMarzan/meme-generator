@@ -1,0 +1,25 @@
+.gallery {
+    background-color: var(--clrPrimary1);
+    border-radius: var(--border-radius);
+    padding: 1.2em;
+}
+
+.gallery .control-panel {
+    margin-block-end: 1.9em;
+}
+
+.gallery .imgs-container {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(auto, 1fr));
+    padding: 0 1.43em;
+    gap: 1.43em;
+}
+
+.gallery .img-preview img {
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+.gallery .img-preview img:hover {
+    filter: grayscale(1);
+}

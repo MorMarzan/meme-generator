@@ -1,0 +1,25 @@
+/* Convert px to rem! color with vars */
+
+.main-header {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr 120px;
+    padding: 25px 0;
+    background-color: green;
+    border-radius: 50px;
+    margin-block: 20px;
+}
+
+.main-header .logo {
+    grid-column: 2;
+}
+
+.main-header .main-nav {
+    grid-column: 3;
+    justify-self: center;
+}
+
+.main-header .main-nav ul {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 50px;
+}

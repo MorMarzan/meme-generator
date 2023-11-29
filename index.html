@@ -10,8 +10,8 @@
 
 <body class="main-layout" onload="onInit()">
 
-    <header class="main-header flex space-between align-center">
-        <div class="logo">Meme Generator</div>
+    <header class="main-header">
+        <div class="logo">Logo</div>
         <nav class="main-nav">
             <ul class="main-nav-list flex clean-list">
                 <li><a href="#">Gallery</a></li>
@@ -23,7 +23,7 @@
 
     <main class="main-content">
 
-        <section class="gallery gallery-layout">
+        <section class="gallery">
             <div class="control-panel">
                 <label>
                     <input type="text" placeholder="Search">
@@ -34,7 +34,7 @@
             </div>
         </section>
 
-        <section class="editor">
+        <section hidden class="editor">
             <div class="control-panel">
                 <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)">
             </div>

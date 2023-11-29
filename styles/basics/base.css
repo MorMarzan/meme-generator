@@ -2,7 +2,20 @@
     box-sizing: border-box;
 }
 
+body {
+    /* margin: 0.9375rem; */
+    margin: 0;
+    font-size: 1.3125rem;
+    background-color: var(--clrPrimaryBase);
+    color: var(--clrPrimary2); 
+}
+
 img {
     width: 100%;
     display: block;
+}
+
+a {
+    color: var(--clrPrimary2); 
+    text-decoration: none;
 }

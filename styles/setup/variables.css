@@ -1,0 +1,20 @@
+
+:root {
+
+    /* color */
+    --clrPrimary2: white;       /* font color */
+    --clrPrimary1: #383B42;     /* section bg */
+    --clrPrimaryBase: #22252c; /* body bg */
+    --clrPrimary-1: #000;
+
+    /* layout  */
+    /* --card-layout-margin: 80px; */
+    /* --card-layout-margin-center: 60px; */
+    --border-radius: 0.714em;
+
+    --l: 1250px;
+    --m: 800px;
+    --s: 600px;
+}
+
+
