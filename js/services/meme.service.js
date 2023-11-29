@@ -26,3 +26,7 @@ var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 function getMeme(memeId) {
     return gMeme
 }
+
+function setLineTxt(newTxt) {
+    gMeme.lines[0].txt = newTxt
+}
