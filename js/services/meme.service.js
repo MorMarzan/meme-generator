@@ -6,20 +6,31 @@ var gMeme = {
     lines: [
         {
             txt: 'I Love you',
-            size: 20,
-            color: 'red'
+            size: 40,
+            color: '#FFFFFF'
         }
     ]
 }
 
-function getMeme(memeId) {
+function getMeme() {
     return gMeme
 }
 
+/* user inputs funcs */
 function setLineTxt(newTxt) {
-    gMeme.lines[0].txt = newTxt
+    gMeme.lines[selectedLineIdx].txt = newTxt
 }
 
 function setImg(imgId) {
     gMeme.selectedImgId = imgId
+}
+
+function setColor(color) {
+    gMeme.lines[gMeme.selectedLineIdx].color = color
+}
+
+function setTxtSize(diff) {
+    let memeSize = gMeme.lines[gMeme.selectedLineIdx].size
+    if ((memeSize >= 80 && diff > 0) || (memeSize <= 20 && diff < 0)) return
+    gMeme.lines[gMeme.selectedLineIdx].size+= diff
 }

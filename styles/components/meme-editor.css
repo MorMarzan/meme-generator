@@ -1,0 +1,14 @@
+.editor {
+    display: grid;
+    grid-template-columns: 30px 1fr 30px 1fr 30px;
+}
+
+.editor .canvas-container {
+    grid-column: 2;
+}
+
+.editor .control-panel {
+    grid-column: 4;
+    display: flex;
+    flex-direction: column;
+}
