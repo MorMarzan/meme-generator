@@ -7,7 +7,7 @@ function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
 }
-
+/* render and its helper funcs */
 function renderMeme() {
     const canvasWidthCenter = gElCanvas.width / 2
     const canvas20PerTop = gElCanvas.height * 0.2
@@ -51,4 +51,10 @@ function onImgSelect(imgId) {
     const elGallery = document.querySelector(".gallery")
     elGallery.hidden = true;
     elEditor.hidden = false;
+}
+
+/* dowload */
+function downloadImg(elLink) {
+    const imgContent = gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
+    elLink.href = imgContent
 }
