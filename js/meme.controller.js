@@ -7,71 +7,67 @@ function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
 }
+
 /* render and its helper funcs */
-//needs optimization!!
 function renderMeme() {
-    const canvasWidthCenter = gElCanvas.width / 2
-    const canvas20PerTop = gElCanvas.height * 0.2
-    const canvas80PerTop = gElCanvas.height * 0.8
-    const currMeme = getMeme()
-    
-    const currUrl = getImgById(currMeme.selectedImgId).url
+    const meme = getMeme()
+    const lines = handleLines(meme)
+
     const eltxtEditors = document.querySelectorAll(".editor .control-panel input[type=text]")
     const elColorInput = document.querySelector(".editor .control-panel input[type=color]")
-    
-    const currMemeOpt = {
-        txt: currMeme.lines[0].txt,
-        color: currMeme.lines[0].color,
-        size: currMeme.lines[0].size,
-        x: canvasWidthCenter,
-        y: canvas20PerTop,
-        isSelected: (currMeme.selectedLineIdx === 0)
-    }
-    const currMemeOpt1 = {
-        txt: currMeme.lines[1].txt,
-        color: currMeme.lines[1].color,
-        size: currMeme.lines[1].size,
-        x: canvasWidthCenter,
-        y: canvas80PerTop,
-        isSelected: (currMeme.selectedLineIdx === 1)
-    }
 
     const elImg = new Image()
-    elImg.src = currUrl
+    elImg.src = getImgById(meme.selectedImgId).url
 
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-        drawText(currMemeOpt)
-        drawText(currMemeOpt1)
-        eltxtEditors[0].value = currMemeOpt.txt
-        eltxtEditors[1].value = currMemeOpt1.txt
-        elColorInput.value = currMemeOpt.color
+        lines.forEach((line, idx) => {
+            drawText(line)
+            eltxtEditors[idx].value = line.txt
+        })
+        elColorInput.value = meme.lines[meme.selectedLineIdx].color
     }
 }
 
-function drawText(memeOpt) {
+function handleLines(meme) {
+    const canvasHeight = gElCanvas.height
+    const vertAligns = [canvasHeight * 0.2, canvasHeight * 0.8, canvasHeight / 2]
+    const horAlign = gElCanvas.width / 2
+    const { lines } = meme
+    return lines.map((line, idx) =>
+    ({
+        txt: line.txt,
+        color: line.color,
+        size: line.size,
+        x: horAlign,
+        y: (idx <= 1) ? vertAligns[idx] : vertAligns[vertAligns.length - 1],
+        isSelected: (meme.selectedLineIdx === idx)
+    })
+    )
+}
+
+/* drawing funcs */
+function drawText(lineProp) {
+    const { txt, color, size, x, y, isSelected } = lineProp
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
-    gCtx.fillStyle = memeOpt.color
-    gCtx.font = `${memeOpt.size}px Impact`
+    gCtx.fillStyle = color
+    gCtx.font = `${size}px Impact`
     gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
-    gCtx.fillText(memeOpt.txt, memeOpt.x, memeOpt.y)
-    gCtx.strokeText(memeOpt.txt, memeOpt.x, memeOpt.y)
+    gCtx.fillText(txt, x, y)
+    gCtx.strokeText(txt, x, y)
 
-    if (memeOpt.isSelected) {
-        drawRect(memeOpt.x, memeOpt.y, gCtx.measureText(memeOpt.txt).width + 5, memeOpt.size + 5)
+    if (isSelected) {
+        drawRect(x, y, gCtx.measureText(txt).width + 5, size + 5)
     }
 }
 
 function drawRect(x, y, w, h) {
     gCtx.beginPath()
     gCtx.lineWidth = 1
-
     gCtx.strokeStyle = 'white'
-    gCtx.strokeRect(x-w/2, y-h/2, w, h)
-    // gCtx.rect(x, y, 120, 120)
-    // gCtx.stroke()
+    gCtx.strokeRect(x - w / 2, y - h / 2, w, h)
 }
 
 /* user inputs funcs */
