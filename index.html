@@ -40,13 +40,16 @@
                 </canvas>
             </div>
             <div class="control-panel">
-                <div class="txtInputs-container"></div>
-                <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)" onfocus="onSelectLine(0)">
-                <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)" onfocus="onSelectLine(1)">
+                <!-- <div class="txtInputs-container"></div> -->
+                <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)" onfocus="onSelectLine(event)">
+                <!-- <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)" onfocus="onSelectLine(1)"> -->
 
                 <input type="color" oninput="onSetColor(this.value)" value="#FFFFFF">
                 <button class="btn" onclick="onSetTxtSize(1)">A+</button>
                 <button class="btn" onclick="onSetTxtSize(-1)">A-</button>
+                <button class="btn" onclick="onSetAlignment('right')">left</button>
+                <button class="btn" onclick="onSetAlignment('center')">center</button>
+                <button class="btn" onclick="onSetAlignment('left')">right</button>
                 <!-- <button class="btn" onclick="onAddline()">+LINE</button> -->
                 <button class="btn" onclick="onSwitchLine()">↓</button>
                 <a href="#" class="btn download" onclick="downloadImg(this)" download="my-meme.jpg">Download</a>

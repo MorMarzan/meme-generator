@@ -12,9 +12,8 @@ function onInit() {
 function renderMeme() {
     const meme = getMeme()
     const lines = handleLines(meme)
-    // renderTxtInput(meme.lines.length)
-    
-    const eltxtEditors = document.querySelectorAll(".editor .control-panel input[type=text]")
+
+    const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
     const elColorInput = document.querySelector(".editor .control-panel input[type=color]")
 
     const elImg = new Image()
@@ -22,10 +21,10 @@ function renderMeme() {
 
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-        lines.forEach((line, idx) => {
+        lines.forEach(line => {
             drawText(line)
-            eltxtEditors[idx].value = line.txt
         })
+        eltxtEditor.value = meme.lines[meme.selectedLineIdx].txt
         elColorInput.value = meme.lines[meme.selectedLineIdx].color
     }
 }
@@ -40,6 +39,7 @@ function handleLines(meme) {
         txt: line.txt,
         color: line.color,
         size: line.size,
+        align: line.align,
         x: horAlign,
         y: (idx <= 1) ? vertAligns[idx] : vertAligns[vertAligns.length - 1],
         isSelected: (meme.selectedLineIdx === idx)
@@ -49,18 +49,26 @@ function handleLines(meme) {
 
 /* drawing funcs */
 function drawText(lineProp) {
-    const { txt, color, size, x, y, isSelected } = lineProp
+    let { txt, color, size, align, x, y, isSelected } = lineProp
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = color
     gCtx.font = `${size}px Impact`
-    gCtx.textAlign = 'center'
+    gCtx.textAlign = align
     gCtx.textBaseline = 'middle'
     gCtx.fillText(txt, x, y)
     gCtx.strokeText(txt, x, y)
 
     if (isSelected) {
-        drawRect(x, y, gCtx.measureText(txt).width + 5, size + 5)
+        const txtWidth = gCtx.measureText(txt).width
+        switch (align) {
+            case 'right':
+                x = x - (txtWidth) / 2
+                break
+            case 'left':
+                x = x + (txtWidth) / 2
+        }
+        drawRect(x, y, txtWidth + 5, size + 5)
     }
 }
 
@@ -87,12 +95,25 @@ function onSetLineTxt(newTxt) {
     renderMeme()
 }
 
-function onSelectLine(lineNum) {
-    // console.log('lineNum',lineNum)
-    selectLine(parseInt(lineNum))
+function onSelectLine(ev) {
+    // console.log('ev', ev)
+    // selectLine(parseInt(lineNum))
     renderMeme()
 }
 
+function onSwitchLine() {
+    const selectedLine = switchLine()
+    renderMeme()
+    const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
+    eltxtEditor.focus()
+}
+
+function onAddline() {
+    addLine()
+    renderMeme()
+}
+
+/* user change txt style funcs */
 function onSetColor(color) {
     setColor(color)
     renderMeme()
@@ -103,30 +124,9 @@ function onSetTxtSize(diff) {
     renderMeme()
 }
 
-function onAddline() {
-    addLine()
+function onSetAlignment(dir) {
+    setAlignment(dir)
     renderMeme()
-}
-
-function renderTxtInput(count) {
-    const elTxtContainer = document.querySelector(".txtInputs-container")
-    let strHtml = ''
-
-    for (let i = 0; i < count; i++) {
-        strHtml+= `<input type="text" placeholder="Your text here" oninput="console.log('write')" onfocus="console.log('focus')">`
-        // oninput="onSetLineTxt(this.value)"
-        // onfocus="onSelectLine(${i})"
-        
-    }
-
-    elTxtContainer.innerHTML = strHtml
-}
-
-function onSwitchLine() {
-    const selectedLine = switchLine()
-    renderMeme()
-    const eltxtEditors = document.querySelectorAll(".editor .control-panel input[type=text]")
-    eltxtEditors[selectedLine].focus()
 }
 
 
