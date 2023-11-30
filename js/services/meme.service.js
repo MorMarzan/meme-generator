@@ -23,6 +23,11 @@ function getMeme() {
     return gMeme
 }
 
+function updateLineCoors(idx, coor) {
+    gMeme.lines[idx].x = coor.x
+    gMeme.lines[idx].y = coor.y
+}
+
 /* user inputs funcs */
 function setImg(imgId) {
     gMeme.selectedImgId = imgId

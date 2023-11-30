@@ -12,7 +12,7 @@ function onInit() {
 function renderMeme() {
     const meme = getMeme()
     const lines = handleLines(meme)
-
+    const selectedLine = meme.lines[meme.selectedLineIdx]
     const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
     const elColorInput = document.querySelector(".editor .control-panel input[type=color]")
 
@@ -24,9 +24,24 @@ function renderMeme() {
         lines.forEach(line => {
             drawText(line)
         })
-        eltxtEditor.value = meme.lines[meme.selectedLineIdx].txt
-        elColorInput.value = meme.lines[meme.selectedLineIdx].color
+        //selected line handling
+        // frameSelected(selectedLine)
+        eltxtEditor.value = selectedLine.txt
+        elColorInput.value = selectedLine.color
     }
+}
+
+function frameSelected(selectedLine) {
+    let { txt, size:h, align, x, y } = selectedLine
+    const w = gCtx.measureText(txt).width
+    switch (align) {
+        case 'right':
+            x = x - (txtWidth) / 2
+            break
+        case 'left':
+            x = x + (txtWidth) / 2
+    }
+    drawRect(x, y, w + 5, h + 5)
 }
 
 function handleLines(meme) {
@@ -45,6 +60,20 @@ function handleLines(meme) {
         isSelected: (meme.selectedLineIdx === idx)
     })
     )
+}
+
+function setLineCoors(meme) {
+    const canvasHeight = gElCanvas.height
+    const vertAligns = [canvasHeight * 0.2, canvasHeight * 0.8, canvasHeight / 2]
+    const horAlign = gElCanvas.width / 2
+    const { lines } = meme
+    return lines.forEach((line, idx) => {
+        const coor = {
+            x: horAlign,
+            y: (idx <= 1) ? vertAligns[idx] : vertAligns[vertAligns.length - 1],
+        }
+        updateLineCoors(idx, coor)
+    })
 }
 
 /* drawing funcs */
