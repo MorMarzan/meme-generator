@@ -84,7 +84,7 @@ function setLineCoors(meme) {
 
 /* drawing funcs */
 function drawText(line, idx, isSelected = false) {
-    let { txt, color, size, align, x, y } = line
+    const { txt, color, size, align, x, y } = line
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = color
@@ -125,6 +125,7 @@ function onImgSelect(imgId) {
     const elGallery = document.querySelector(".gallery")
     elGallery.classList.add("hide")
     elEditor.classList.remove("hide")
+    focusTxtEditor()
 }
 
 function onSetLineTxt(newTxt) {
@@ -132,22 +133,27 @@ function onSetLineTxt(newTxt) {
     renderMeme()
 }
 
-function onSelectLine(ev) {
-    // console.log('ev', ev)
-    // selectLine(parseInt(lineNum))
-    // renderMeme()
-}
+// function onSelectLine() {
+//     selectLine()
+//     renderMeme()
+//     focusTxtEditor()
+// }
 
 function onSwitchLine() {
     switchLine()
     renderMeme()
-    const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
-    eltxtEditor.focus()
+    focusTxtEditor()
 }
 
 function onAddline() {
     addLine()
     renderMeme()
+    focusTxtEditor()
+}
+
+function focusTxtEditor() {
+    const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
+    eltxtEditor.focus()
 }
 
 /* user change txt style funcs */
@@ -201,12 +207,16 @@ function addTouchListeners() {
 }
 
 function onDown(ev) {
-    console.log('onDown')
-    // Get the ev pos from mouse or touch
+    // console.log('onDown')
     const pos = getEvPos(ev)
-    // // console.log('pos', pos)
-    console.log('isLineClicked', isLineClicked(pos))
-    // if (!isLineClicked(pos)) return
+    // console.log('pos', pos)
+    // console.log('isLineClicked', isLineClicked(pos))
+    const lineClicked = getLineClickedIdx(pos)
+    if (lineClicked === -1) return
+
+    selectLine(lineClicked)
+    renderMeme()
+    focusTxtEditor()
 
     // setCircleDrag(true)
     // //Save the pos we start from

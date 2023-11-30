@@ -41,8 +41,8 @@ function setLineTxt(newTxt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = newTxt
 }
 
-function selectLine(lineNum) {
-    gMeme.selectedLineIdx = lineNum
+function selectLine(lineIdx) {
+    gMeme.selectedLineIdx = lineIdx
 }
 
 function switchLine() {
@@ -55,6 +55,7 @@ function switchLine() {
 
 function addLine() {
     gMeme.lines.push(_creatLine())
+    gMeme.selectedLineIdx = gMeme.lines.length-1
     // const newLine = _creatLine()
     // gMeme.lines.splice(1, 0, newLine)
 }
@@ -75,12 +76,13 @@ function setAlignment(dir) {
 }
 
 /* track and handl user touch/click on canvas */
-function isLineClicked(clickedPos) {
-    const clickedLine = gMeme.lines.find(line => {
-        return clickedPos.x >= line.x && clickedPos.x <= line.x + line.width
-            && clickedPos.y >= line.y && clickedPos.y <= line.y + line.size
+function getLineClickedIdx(clickedPos) {
+    const clickedLine = gMeme.lines.findIndex(line => {
+        return clickedPos.x >= line.x - line.width/2 && clickedPos.x <= line.x - line.width/2 + line.width
+            && clickedPos.y >= line.y - line.size/2 && clickedPos.y <= line.y - line.size/2 + line.size
     })
-    return (clickedLine) ? clickedLine : null
+    // return (clickedLine) ? clickedLine : null
+    return clickedLine
 
     // const { pos } = gCircle
     // // Calc the distance between two dots
