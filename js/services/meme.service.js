@@ -8,13 +8,15 @@ var gMeme = {
             txt: 'I Love you',
             size: 40,
             color: '#FFFFFF',
-            align: 'center'
+            align: 'center',
+            font: 'Impact'
         },
         {
             txt: 'I Love you more',
             size: 30,
             color: '#FFFFFF',
-            align: 'center'
+            align: 'center',
+            font: 'Impact'
         }
     ]
 }
@@ -75,6 +77,10 @@ function setAlignment(dir) {
     gMeme.lines[gMeme.selectedLineIdx].align = dir
 }
 
+function setFontFamily(font) {
+    gMeme.lines[gMeme.selectedLineIdx].font = font
+}
+
 /* track and handl user touch/click on canvas */
 function getLineClickedIdx(clickedPos) {
     const clickedLine = gMeme.lines.findIndex(line => {
@@ -114,6 +120,7 @@ function _creatLine() {
         txt: 'I Love you',
         size: 40,
         color: '#FFFFFF',
-        align: 'center'
+        align: 'center',
+        font: 'Impact'
     }
 }

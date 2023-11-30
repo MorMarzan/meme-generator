@@ -45,7 +45,7 @@
                 <div class="lines-handlers">
                     <button class="btn" onclick="onSwitchLine()">↓Switch Line</button>
                     <button class="btn" onclick="onAddline()">+LINE</button>
-                    <button class="btn" onclick="alert('Coming Soon!')">-LINE</button>
+                    <button class="btn" onclick="onRemoveline()">-LINE</button>
                 </div>
 
                 <div class="font-handlers">
@@ -56,7 +56,7 @@
                     <button class="btn" onclick="onSetAlignment('center')">center</button>
                     <button class="btn" onclick="onSetAlignment('left')">right</button>
 
-                    <input list="fonts" name="font" placeholder="Impact" onchange="alert('Coming Soon!')">
+                    <input list="fonts" name="font" placeholder="Impact" onchange="onSetFontFamily(this.value)">
 
                     <input type="color" oninput="onSetColor(this.value)" value="#FFFFFF">
                     <input type="color" onclick="alert('Stroke Color Coming Soon!')"
@@ -81,7 +81,8 @@
 
     <datalist id="fonts">
         <option value="Impact"></option>
-        <option value="Arial"></option>
+        <option value="fantasy"></option>
+        <option value="monospace"></option>
     </datalist>
 
     <script src="js/services/util.service.js"></script>

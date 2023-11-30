@@ -81,11 +81,11 @@ function setLineCoors(meme) {
 
 /* drawing funcs */
 function drawText(line, idx, isSelected = false) {
-    const { txt, color, size, align, x, y } = line
+    const { txt, color, size, align, font, x, y } = line
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = color
-    gCtx.font = `${size}px Impact`
+    gCtx.font = `${size}px ${font}`
     gCtx.textAlign = align
     gCtx.textBaseline = 'middle'
     gCtx.fillText(txt, x, y)
@@ -152,7 +152,7 @@ function onAddline() {
 function focusTxtEditor() {
     const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
     eltxtEditor.focus()
-    console.log('trying to focus')
+    // console.log('trying to focus')
 }
 
 /* user change txt style funcs */
@@ -168,6 +168,12 @@ function onSetTxtSize(diff) {
 
 function onSetAlignment(dir) {
     setAlignment(dir)
+    renderMeme()
+}
+
+function onSetFontFamily(font) {
+    console.log('font', font)
+    setFontFamily(font)
     renderMeme()
 }
 
