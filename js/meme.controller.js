@@ -21,7 +21,7 @@ function renderMeme() {
 
     const selectedLine = meme.lines[meme.selectedLineIdx]
     const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
-    const elColorInput = document.querySelector(".editor .control-panel input[type=color]")
+    const elColorInputs = document.querySelectorAll(".editor .control-panel input[type=color]")
 
     const elImg = new Image()
     const imgId = getImgById(meme.selectedImgId)
@@ -35,7 +35,8 @@ function renderMeme() {
         })
         frameSelected(selectedLine)
         eltxtEditor.value = selectedLine.txt
-        elColorInput.value = selectedLine.color
+        elColorInputs[0].value = selectedLine.color
+        elColorInputs[1].value = selectedLine.stroke
     }
 }
 
@@ -71,19 +72,21 @@ function setLineCoors(meme) {
     const horAlign = gElCanvas.width / 2
     const { lines } = meme
     return lines.forEach((line, idx) => {
-        const coor = {
-            x: horAlign,
-            y: (idx <= 1) ? vertAligns[idx] : vertAligns[vertAligns.length - 1],
+        if (!line.x || !line.y) {
+            const coor = {
+                x: horAlign,
+                y: (idx <= 1) ? vertAligns[idx] : vertAligns[vertAligns.length - 1],
+            }
+            updateLineCoors(idx, coor)
         }
-        updateLineCoors(idx, coor)
     })
 }
 
 /* drawing funcs */
 function drawText(line, idx, isSelected = false) {
-    const { txt, color, size, align, font, x, y } = line
+    const { txt, color, stroke, size, align, font, x, y } = line
     gCtx.lineWidth = 2
-    gCtx.strokeStyle = 'black'
+    gCtx.strokeStyle = stroke
     gCtx.fillStyle = color
     gCtx.font = `${size}px ${font}`
     gCtx.textAlign = align
@@ -149,6 +152,12 @@ function onAddline() {
     focusTxtEditor()
 }
 
+function onRemoveline() {
+    removeLine()
+    renderMeme()
+    focusTxtEditor()
+}
+
 function focusTxtEditor() {
     const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
     eltxtEditor.focus()
@@ -158,6 +167,11 @@ function focusTxtEditor() {
 /* user change txt style funcs */
 function onSetColor(color) {
     setColor(color)
+    renderMeme()
+}
+
+function onSetSrokeColor(color) {
+    setStrokeColor(color)
     renderMeme()
 }
 
@@ -190,12 +204,12 @@ function addListeners() {
     addTouchListeners()
     //Listen for resize ev
     // window.addEventListener('resize', () => {
-        // resizeCanvas()
-        //Calc the center of the canvas
-        // const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
-        //Create the circle in the center
-        // createCircle(center)
-        // renderMeme()
+    // resizeCanvas()
+    //Calc the center of the canvas
+    // const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
+    //Create the circle in the center
+    // createCircle(center)
+    // renderMeme()
     // })
 }
 
@@ -282,14 +296,14 @@ function getEvPos(ev) {
 /* share */
 function onUploadImg() {
     // Gets the image from the canvas
-    const imgDataUrl = gElCanvas.toDataURL('image/jpeg') 
+    const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
 
     function onSuccess(uploadedImgUrl) {
         // Handle some special characters
         const url = encodeURIComponent(uploadedImgUrl)
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${url}`)
     }
-    
+
     // Send the image to the server
     doUploadImg(imgDataUrl, onSuccess)
 }

@@ -8,6 +8,7 @@ var gMeme = {
             txt: 'I Love you',
             size: 40,
             color: '#FFFFFF',
+            stroke: '#000000',
             align: 'center',
             font: 'Impact'
         },
@@ -15,6 +16,7 @@ var gMeme = {
             txt: 'I Love you more',
             size: 30,
             color: '#FFFFFF',
+            stroke: '#000000',
             align: 'center',
             font: 'Impact'
         }
@@ -62,9 +64,19 @@ function addLine() {
     // gMeme.lines.splice(1, 0, newLine)
 }
 
+function removeLine() {
+    if (gMeme.lines.length === 1) return
+    gMeme.lines.splice(gMeme.selectedLineIdx,1)
+    gMeme.selectedLineIdx = 0
+}
+
 /* user change txt style funcs */
 function setColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].color = color
+}
+
+function setStrokeColor(color) {
+    gMeme.lines[gMeme.selectedLineIdx].stroke = color
 }
 
 function setTxtSize(diff) {
@@ -120,6 +132,7 @@ function _creatLine() {
         txt: 'I Love you',
         size: 40,
         color: '#FFFFFF',
+        stroke: '#000000',
         align: 'center',
         font: 'Impact'
     }
