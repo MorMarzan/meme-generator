@@ -101,6 +101,8 @@ function onSelectLine(ev) {
     renderMeme()
 }
 
+
+
 function onSwitchLine() {
     const selectedLine = switchLine()
     renderMeme()

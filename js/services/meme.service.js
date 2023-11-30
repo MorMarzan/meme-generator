@@ -34,8 +34,6 @@ function setLineTxt(newTxt) {
 
 function selectLine(lineNum) {
     gMeme.selectedLineIdx = lineNum
-    // console.log('gMeme.selectedLineIdx',gMeme.selectedLineIdx)
-    // console.log('srvice active', lineNum)
 }
 
 function switchLine() {
@@ -48,6 +46,8 @@ function switchLine() {
 
 function addLine() {
     gMeme.lines.push(_creatLine())
+    // const newLine = _creatLine()
+    // gMeme.lines.splice(1, 0, newLine)
 }
 
 /* user change txt style funcs */
