@@ -12,7 +12,8 @@ function onInit() {
 function renderMeme() {
     const meme = getMeme()
     const lines = handleLines(meme)
-
+    // renderTxtInput(meme.lines.length)
+    
     const eltxtEditors = document.querySelectorAll(".editor .control-panel input[type=text]")
     const elColorInput = document.querySelector(".editor .control-panel input[type=color]")
 
@@ -71,16 +72,6 @@ function drawRect(x, y, w, h) {
 }
 
 /* user inputs funcs */
-function onSetLineTxt(newTxt) {
-    setLineTxt(newTxt)
-    renderMeme()
-}
-
-function onSelectLine(lineNum) {
-    selectLine(lineNum)
-    renderMeme()
-}
-
 function onImgSelect(imgId) {
     setImg(imgId)
     renderMeme()
@@ -89,6 +80,17 @@ function onImgSelect(imgId) {
     const elGallery = document.querySelector(".gallery")
     elGallery.classList.add("hide")
     elEditor.classList.remove("hide")
+}
+
+function onSetLineTxt(newTxt) {
+    setLineTxt(newTxt)
+    renderMeme()
+}
+
+function onSelectLine(lineNum) {
+    // console.log('lineNum',lineNum)
+    selectLine(parseInt(lineNum))
+    renderMeme()
 }
 
 function onSetColor(color) {
@@ -100,6 +102,27 @@ function onSetTxtSize(diff) {
     setTxtSize(diff)
     renderMeme()
 }
+
+function onAddline() {
+    addLine()
+    renderMeme()
+}
+
+function renderTxtInput(count) {
+    const elTxtContainer = document.querySelector(".txtInputs-container")
+    let strHtml = ''
+
+    for (let i = 0; i < count; i++) {
+        strHtml+= `<input type="text" placeholder="Your text here" oninput="console.log('write')" onfocus="console.log('focus')">`
+        // oninput="onSetLineTxt(this.value)"
+        // onfocus="onSelectLine(${i})"
+        
+    }
+
+    elTxtContainer.innerHTML = strHtml
+}
+
+
 /* dowload */
 function downloadImg(elLink) {
     const imgContent = gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
