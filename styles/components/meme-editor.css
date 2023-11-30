@@ -1,6 +1,7 @@
 .editor {
     display: grid;
     grid-template-columns: 30px 1fr 30px 1fr 30px;
+    justify-items: center;
 }
 
 .editor .canvas-container {
@@ -9,6 +10,18 @@
 
 .editor .control-panel {
     grid-column: 4;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.canvas-container {
+    width: 400px;
+    height: 400px;
+    /* width: 60vw;
+    height: 80vh; */
+}
+
+canvas {
+    border: 1px solid black;
 }
