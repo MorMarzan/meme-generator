@@ -78,8 +78,11 @@ function setAlignment(dir) {
 /* track and handl user touch/click on canvas */
 function getLineClickedIdx(clickedPos) {
     const clickedLine = gMeme.lines.findIndex(line => {
-        return clickedPos.x >= line.x - line.width/2 && clickedPos.x <= line.x - line.width/2 + line.width
-            && clickedPos.y >= line.y - line.size/2 && clickedPos.y <= line.y - line.size/2 + line.size
+        const lineTopCoor = getTextLeftTopCoor(line)
+        return clickedPos.x >= lineTopCoor.x && clickedPos.x <= lineTopCoor.x + line.width
+            && clickedPos.y >= lineTopCoor.y && clickedPos.y <= lineTopCoor.y + line.size
+        // return clickedPos.x >= line.x - line.width/2 && clickedPos.x <= line.x - line.width/2 + line.width
+        //     && clickedPos.y >= line.y - line.size/2 && clickedPos.y <= line.y - line.size/2 + line.size
     })
     // return (clickedLine) ? clickedLine : null
     return clickedLine
@@ -91,6 +94,19 @@ function getLineClickedIdx(clickedPos) {
     // //If its smaller then the radius of the circle we are inside
     // return distance <= gCircle.size
 }
+
+function getTextLeftTopCoor(line) {
+    let { size: h, width: w, align, x, y } = line
+    switch (align) {
+        case 'right':
+            x = x - (w) / 2
+            break
+        case 'left':
+            x = x + (w) / 2
+    }
+    return { x: x - w / 2, y: y - h / 2 }
+}
+
 
 /* private funcs */
 function _creatLine() {

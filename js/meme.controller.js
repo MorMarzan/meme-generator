@@ -37,18 +37,12 @@ function renderMeme() {
 }
 
 function frameSelected(selectedLine) {
-    let { txt, size: h, align, x, y, size } = selectedLine
-    gCtx.font = `${size}px Impact`
-    const w = gCtx.measureText(txt).width
-    switch (align) {
-        case 'right':
-            x = x - (w) / 2
-            break
-        case 'left':
-            x = x + (w) / 2
-    }
-    drawRect(x, y, w + 5, h + 5)
+    let { size: h, width: w } = selectedLine
+    const pad = 5
+    const coor = getTextLeftTopCoor(selectedLine)
+    drawRect(coor.x - pad / 2, coor.y - pad / 2, w + pad, h + pad)
 }
+
 
 // function handleLines(meme) {
 //     const canvasHeight = gElCanvas.height
@@ -113,7 +107,8 @@ function drawRect(x, y, w, h) {
     gCtx.beginPath()
     gCtx.lineWidth = 1
     gCtx.strokeStyle = 'white'
-    gCtx.strokeRect(x - w / 2, y - h / 2, w, h)
+    gCtx.strokeRect(x, y, w, h)
+    // gCtx.strokeRect(x - w / 2, y - h / 2, w, h)
 }
 
 /* user inputs funcs */
@@ -210,8 +205,8 @@ function onDown(ev) {
     // console.log('onDown')
     const pos = getEvPos(ev)
     // console.log('pos', pos)
-    // console.log('isLineClicked', isLineClicked(pos))
     const lineClicked = getLineClickedIdx(pos)
+    console.log('lineClicked', lineClicked)
     if (lineClicked === -1) return
 
     selectLine(lineClicked)
