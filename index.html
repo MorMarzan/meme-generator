@@ -23,7 +23,7 @@
 
     <main class="main-content">
 
-        <section class="gallery">
+        <section class="gallery" hidden>
             <div class="control-panel">
                 <label>
                     <input type="text" placeholder="Search">
@@ -41,15 +41,31 @@
             </div>
             <div class="control-panel">
                 <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)">
-                <input type="color" oninput="onSetColor(this.value)" value="#FFFFFF">
-                <button class="btn" onclick="onSetTxtSize(1)">A+</button>
-                <button class="btn" onclick="onSetTxtSize(-1)">A-</button>
-                <button class="btn" onclick="onSetAlignment('right')">left</button>
-                <button class="btn" onclick="onSetAlignment('center')">center</button>
-                <button class="btn" onclick="onSetAlignment('left')">right</button>
-                <button class="btn" onclick="onAddline()">+LINE</button>
-                <button class="btn" onclick="onSwitchLine()">↓Switch Line</button>
-                <a href="#" class="btn download" onclick="downloadImg(this)" download="my-meme.jpg">Download</a>
+
+                <div class="lines-handlers">
+                    <button class="btn" onclick="onSwitchLine()">↓Switch Line</button>
+                    <button class="btn" onclick="onAddline()">+LINE</button>
+                    <button class="btn" onclick="alert('Coming Soon!')">-LINE</button>
+                </div>
+
+                <div class="font-handlers">
+                    <button class="btn" onclick="onSetTxtSize(1)">A+</button>
+                    <button class="btn" onclick="onSetTxtSize(-1)">A-</button>
+
+                    <button class="btn" onclick="onSetAlignment('right')">left</button>
+                    <button class="btn" onclick="onSetAlignment('center')">center</button>
+                    <button class="btn" onclick="onSetAlignment('left')">right</button>
+
+                    <input list="fonts" name="font" placeholder="Impact" onchange="alert('Coming Soon!')">
+
+                    <input type="color" oninput="onSetColor(this.value)" value="#FFFFFF">
+                    <input type="color" onclick="alert('Stroke Color Coming Soon!')"
+                        oninput="onSetSrokeColor(this.value)" value="#000000">
+                </div>
+                <div class="loads-handlers">
+                    <a href="#" class="btn download" onclick="downloadImg(this)" download="my-meme.jpg">Download</a>
+                    <button class="btn" onclick="onUploadImg()">Share</button>
+                </div>
             </div>
         </section>
 
@@ -58,6 +74,11 @@
     <footer class="main-footer flex space-between align-center">
         <small>all rights 2023</small>
     </footer>
+
+    <datalist id="fonts">
+        <option value="Impact"></option>
+        <option value="Arial"></option>
+    </datalist>
 
     <script src="js/services/util.service.js"></script>
     <script src="js/services/storage.service.js"></script>
