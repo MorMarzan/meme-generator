@@ -50,6 +50,14 @@ function addLine() {
     gMeme.lines.push(_creatLine())
 }
 
+function switchLine() {
+    if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
+        gMeme.selectedLineIdx = 0
+    } else gMeme.selectedLineIdx++
+    return gMeme.selectedLineIdx
+
+}
+
 /* private funcs */
 function _creatLine() {
     return {

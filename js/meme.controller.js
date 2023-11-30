@@ -122,6 +122,13 @@ function renderTxtInput(count) {
     elTxtContainer.innerHTML = strHtml
 }
 
+function onSwitchLine() {
+    const selectedLine = switchLine()
+    renderMeme()
+    const eltxtEditors = document.querySelectorAll(".editor .control-panel input[type=text]")
+    eltxtEditors[selectedLine].focus()
+}
+
 
 /* dowload */
 function downloadImg(elLink) {
