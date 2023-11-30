@@ -59,15 +59,17 @@ function drawText(memeOpt) {
     gCtx.fillText(memeOpt.txt, memeOpt.x, memeOpt.y)
     gCtx.strokeText(memeOpt.txt, memeOpt.x, memeOpt.y)
 
-    if (memeOpt.isSelected) drawRect(memeOpt.x, memeOpt.y)
+    if (memeOpt.isSelected) {
+        drawRect(memeOpt.x, memeOpt.y, gCtx.measureText(memeOpt.txt).width + 5, memeOpt.size + 5)
+    }
 }
 
-function drawRect(x, y) {
+function drawRect(x, y, w, h) {
     gCtx.beginPath()
-    gCtx.lineWidth = 2
+    gCtx.lineWidth = 1
 
     gCtx.strokeStyle = 'white'
-    gCtx.strokeRect(x, y, 80, 40)
+    gCtx.strokeRect(x-w/2, y-h/2, w, h)
     // gCtx.rect(x, y, 120, 120)
     // gCtx.stroke()
 }
@@ -84,14 +86,11 @@ function onSelectLine(lineNum) {
 }
 
 function onImgSelect(imgId) {
-    // console.log(imgId)
     setImg(imgId)
     renderMeme()
 
     const elEditor = document.querySelector(".editor")
     const elGallery = document.querySelector(".gallery")
-    // elGallery.hidden = true;
-    // elEditor.hidden = false;
     elGallery.classList.add("hide")
     elEditor.classList.remove("hide")
 }
