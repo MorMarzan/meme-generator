@@ -28,6 +28,10 @@ function updateLineCoors(idx, coor) {
     gMeme.lines[idx].y = coor.y
 }
 
+function setLineWidth(idx, width) {
+    gMeme.lines[idx].width = width
+}
+
 /* user inputs funcs */
 function setImg(imgId) {
     gMeme.selectedImgId = imgId
@@ -68,6 +72,22 @@ function setTxtSize(diff) {
 
 function setAlignment(dir) {
     gMeme.lines[gMeme.selectedLineIdx].align = dir
+}
+
+/* track and handl user touch/click on canvas */
+function isLineClicked(clickedPos) {
+    const clickedLine = gMeme.lines.find(line => {
+        return clickedPos.x >= line.x && clickedPos.x <= line.x + line.width
+            && clickedPos.y >= line.y && clickedPos.y <= line.y + line.size
+    })
+    return (clickedLine) ? clickedLine : null
+
+    // const { pos } = gCircle
+    // // Calc the distance between two dots
+    // const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
+    // // console.log('distance', distance)
+    // //If its smaller then the radius of the circle we are inside
+    // return distance <= gCircle.size
 }
 
 /* private funcs */

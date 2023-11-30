@@ -2,17 +2,20 @@
 
 let gElCanvas
 let gCtx
+let gStartPos
+const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
+    addListeners()
 }
 
 /* render and its helper funcs */
 function renderMeme() {
     const meme = getMeme()
     setLineCoors(meme)
-    const {lines} = meme
+    const { lines } = meme
 
     const selectedLine = meme.lines[meme.selectedLineIdx]
     const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
@@ -24,27 +27,28 @@ function renderMeme() {
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
         lines.forEach((line, idx) => {
-            drawText(line, (meme.selectedLineIdx === idx))
+            drawText(line, idx)
+            // drawText(line, (meme.selectedLineIdx === idx))
         })
+        frameSelected(selectedLine)
         eltxtEditor.value = selectedLine.txt
         elColorInput.value = selectedLine.color
     }
 }
 
-// function frameSelected(selectedLine) {
-//     // console.log('selectedLine',selectedLine)
-//     let { txt, size:h, align, x, y } = selectedLine
-//     // const w = gCtx.measureText(txt).width
-//     console.log('w from frame', w)
-//     switch (align) {
-//         case 'right':
-//             x = x - (w) / 2
-//             break
-//         case 'left':
-//             x = x + (w) / 2
-//     }
-//     drawRect(x, y, w + 5, h + 5)
-// }
+function frameSelected(selectedLine) {
+    let { txt, size: h, align, x, y, size } = selectedLine
+    gCtx.font = `${size}px Impact`
+    const w = gCtx.measureText(txt).width
+    switch (align) {
+        case 'right':
+            x = x - (w) / 2
+            break
+        case 'left':
+            x = x + (w) / 2
+    }
+    drawRect(x, y, w + 5, h + 5)
+}
 
 // function handleLines(meme) {
 //     const canvasHeight = gElCanvas.height
@@ -79,7 +83,7 @@ function setLineCoors(meme) {
 }
 
 /* drawing funcs */
-function drawText(line, isSelected) {
+function drawText(line, idx, isSelected = false) {
     let { txt, color, size, align, x, y } = line
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
@@ -90,17 +94,19 @@ function drawText(line, isSelected) {
     gCtx.fillText(txt, x, y)
     gCtx.strokeText(txt, x, y)
 
-    if (isSelected) {
-        const txtWidth = gCtx.measureText(txt).width
-        switch (align) {
-            case 'right':
-                x = x - (txtWidth) / 2
-                break
-            case 'left':
-                x = x + (txtWidth) / 2
-        }
-        drawRect(x, y, txtWidth + 5, size + 5)
-    }
+    setLineWidth(idx, gCtx.measureText(txt).width)
+
+    // if (isSelected) {
+    //     const txtWidth = gCtx.measureText(txt).width
+    //     switch (align) {
+    //         case 'right':
+    //             x = x - (txtWidth) / 2
+    //             break
+    //         case 'left':
+    //             x = x + (txtWidth) / 2
+    //     }
+    //     drawRect(x, y, txtWidth + 5, size + 5)
+    // }
 }
 
 function drawRect(x, y, w, h) {
@@ -132,8 +138,6 @@ function onSelectLine(ev) {
     // renderMeme()
 }
 
-
-
 function onSwitchLine() {
     switchLine()
     renderMeme()
@@ -162,9 +166,100 @@ function onSetAlignment(dir) {
     renderMeme()
 }
 
-
 /* dowload */
 function downloadImg(elLink) {
     const imgContent = gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
     elLink.href = imgContent
+}
+
+/* track and handl user touch/click on canvas */
+
+function addListeners() {
+    addMouseListeners()
+    addTouchListeners()
+    //Listen for resize ev
+    // window.addEventListener('resize', () => {
+    //     resizeCanvas()
+    //     //Calc the center of the canvas
+    //     const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
+    //     //Create the circle in the center
+    //     createCircle(center)
+    //     renderCanvas()
+    // })
+}
+
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchend', onUp)
+}
+
+function onDown(ev) {
+    console.log('onDown')
+    // Get the ev pos from mouse or touch
+    const pos = getEvPos(ev)
+    // // console.log('pos', pos)
+    console.log('isLineClicked', isLineClicked(pos))
+    // if (!isLineClicked(pos)) return
+
+    // setCircleDrag(true)
+    // //Save the pos we start from
+    // gStartPos = pos
+    // document.body.style.cursor = 'grabbing'
+}
+
+function onMove(ev) {
+    // console.log('onMove')
+    // const { isDrag } = getCircle()
+    // if (!isDrag) return
+    // console.log('Moving the circle')
+
+    // const pos = getEvPos(ev)
+    // // Calc the delta, the diff we moved
+    // const dx = pos.x - gStartPos.x
+    // const dy = pos.y - gStartPos.y
+    // moveCircle(dx, dy)
+    // // Save the last pos, we remember where we`ve been and move accordingly
+    // gStartPos = pos
+    // // The canvas is render again after every move
+    // renderCanvas()
+}
+
+function onUp() {
+    // console.log('onUp')
+    // setCircleDrag(false)
+    // document.body.style.cursor = 'grab'
+}
+
+// function resizeCanvas() {
+//     const elContainer = document.querySelector('.canvas-container')
+//     gElCanvas.width = elContainer.offsetWidth
+//     gElCanvas.height = elContainer.offsetHeight
+// }
+
+function getEvPos(ev) {
+
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+
+    if (TOUCH_EVS.includes(ev.type)) {
+        // Prevent triggering the mouse ev
+        ev.preventDefault()
+        // Gets the first touch point
+        ev = ev.changedTouches[0]
+        // Calc the right pos according to the touch screen
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+        }
+    }
+    return pos
 }
