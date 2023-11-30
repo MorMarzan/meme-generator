@@ -149,6 +149,7 @@ function onAddline() {
 function focusTxtEditor() {
     const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
     eltxtEditor.focus()
+    console.log('trying to focus')
 }
 
 /* user change txt style funcs */
@@ -211,7 +212,7 @@ function onDown(ev) {
 
     selectLine(lineClicked)
     renderMeme()
-    focusTxtEditor()
+    focusTxtEditor() //not working from here
 
     // setCircleDrag(true)
     // //Save the pos we start from
