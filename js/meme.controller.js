@@ -22,6 +22,7 @@ function renderMeme() {
     const selectedLine = meme.lines[meme.selectedLineIdx]
     const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
     const elColorInputs = document.querySelectorAll(".editor .control-panel input[type=color]")
+    const elFontSelect = document.querySelector(".editor .control-panel .fonts")
 
     const elImg = new Image()
     const imgId = getImgById(meme.selectedImgId)
@@ -37,6 +38,7 @@ function renderMeme() {
         eltxtEditor.value = selectedLine.txt
         elColorInputs[0].value = selectedLine.color
         elColorInputs[1].value = selectedLine.stroke
+        elFontSelect.value = selectedLine.font
     }
 }
 
@@ -230,7 +232,7 @@ function onDown(ev) {
     const pos = getEvPos(ev)
     // console.log('pos', pos)
     const lineClicked = getLineClickedIdx(pos)
-    console.log('lineClicked', lineClicked)
+    // console.log('lineClicked', lineClicked)
     if (lineClicked === -1) return
 
     selectLine(lineClicked)

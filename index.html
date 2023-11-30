@@ -56,7 +56,13 @@
                     <button class="btn" onclick="onSetAlignment('center')">center</button>
                     <button class="btn" onclick="onSetAlignment('left')">right</button>
 
-                    <input list="fonts" name="font" placeholder="Impact" onchange="onSetFontFamily(this.value)">
+                    <!-- <input list="fonts" name="font" placeholder="Impact" onchange="onSetFontFamily(this.value)"> -->
+                    <select name="fonts" class="fonts" onchange="onSetFontFamily(this.value)">
+                        <!-- <option value="">Impact</option> -->
+                        <option value="Impact">Impact</option>
+                        <option value="fantasy">fantasy</option>
+                        <option value="monospace">monospace</option>
+                      </select>
 
                     <input type="color" title="Font color" oninput="onSetColor(this.value)" value="#FFFFFF">
                     <input type="color" title="Stroke color" oninput="onSetSrokeColor(this.value)" value="#000000">
@@ -78,11 +84,11 @@
         <small>all rights 2023</small>
     </footer> -->
 
-    <datalist id="fonts">
-        <option value="Impact"></option>
-        <option value="fantasy"></option>
-        <option value="monospace"></option>
-    </datalist>
+    <!-- <datalist id="fonts">
+        <option value="Impact">Impact</option>
+        <option value="fantasy">fantasy</option>
+        <option value="monospace">monospace</option>
+    </datalist> -->
 
     <script src="js/services/util.service.js"></script>
     <script src="js/services/storage.service.js"></script>
