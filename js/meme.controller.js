@@ -10,7 +10,8 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
     addListeners()
     resizeCanvas()
-
+    renderMeme()
+    
 }
 
 /* render and its helper funcs */
@@ -122,13 +123,15 @@ function drawRect(x, y, w, h) {
 /* user inputs funcs */
 function onImgSelect(imgId) {
     setImg(imgId)
-    renderMeme()
-
+    
     const elEditor = document.querySelector(".editor")
     const elGallery = document.querySelector(".gallery")
     elGallery.classList.add("hide")
     elEditor.classList.remove("hide")
     focusTxtEditor()
+    
+    resizeCanvas()
+    renderMeme()
 }
 
 function onSetLineTxt(newTxt) {
