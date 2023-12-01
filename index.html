@@ -43,18 +43,34 @@
                 <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)">
 
                 <div class="lines-handlers">
-                    <button class="btn" onclick="onSwitchLine()">↓Switch Line</button>
-                    <button class="btn" onclick="onAddline()">+LINE</button>
-                    <button class="btn" onclick="onRemoveline()">-LINE</button>
+                    <button class="btn switch-line" title="Switch focused text line" onclick="onSwitchLine()">
+                        <img src="/img/icons/up-down-arrows.svg" alt="Up and down arrows symbol">
+                    </button>
+                    <button class="btn add-line" title="Add text line" onclick="onAddline()">
+                        <img src="/img/icons/+.svg" alt="Plus symbol">
+                    </button>
+                    <button class="btn remove-line" title="Remove focused text line" onclick="onRemoveline()">
+                        <img src="/img/icons/trash.svg" alt="Trash symbol">
+                    </button>
                 </div>
 
                 <div class="font-handlers">
-                    <button class="btn" onclick="onSetTxtSize(1)">A+</button>
-                    <button class="btn" onclick="onSetTxtSize(-1)">A-</button>
+                    <button class="btn" title="Increase font size" onclick="onSetTxtSize(1)">
+                        <img src="/img/icons/A+.svg" alt="A+ symbol">
+                    </button>
+                    <button class="btn" title="Decrease font size" onclick="onSetTxtSize(-1)">
+                        <img src="/img/icons/A-.svg" alt="A- symbol">
+                    </button>
 
-                    <button class="btn" onclick="onSetAlignment('right')">left</button>
-                    <button class="btn" onclick="onSetAlignment('center')">center</button>
-                    <button class="btn" onclick="onSetAlignment('left')">right</button>
+                    <button class="btn" title="Align left" onclick="onSetAlignment('right')">
+                        <img src="/img/icons/align-left.svg" alt="Align left symbol">
+                    </button>
+                    <button class="btn" title="Align center" onclick="onSetAlignment('center')">
+                        <img src="/img/icons/align-center.svg" alt="Align center symbol">
+                    </button>
+                    <button class="btn" title="Align right" onclick="onSetAlignment('left')">
+                        <img src="/img/icons/align-right.svg" alt="Align right symbol">
+                    </button>
 
                     <!-- <input list="fonts" name="font" placeholder="Impact" onchange="onSetFontFamily(this.value)"> -->
                     <select name="fonts" class="fonts" onchange="onSetFontFamily(this.value)">
@@ -62,17 +78,33 @@
                         <option value="Impact">Impact</option>
                         <option value="fantasy">fantasy</option>
                         <option value="monospace">monospace</option>
-                      </select>
+                    </select>
 
-                    <input type="color" title="Font color" oninput="onSetColor(this.value)" value="#FFFFFF">
-                    <input type="color" title="Stroke color" oninput="onSetSrokeColor(this.value)" value="#000000">
+                    <label class="btn" title="Font color">
+                        <img src="/img/icons/palette.svg"
+                            alt="Palette symbol">
+                        <input type="color" oninput="onSetColor(this.value)" value="#FFFFFF">
+                    </label>
+                    <label class="btn" title="Stroke color">
+                        <img src="/img/icons/underlined-s.svg"
+                        alt="Stroke symbol">
+                        <input type="color" oninput="onSetSrokeColor(this.value)" value="#000000">
+                    </label>
                 </div>
 
                 <div class="stickers-container"></div>
 
                 <div class="loads-handlers">
-                    <a href="#" class="btn download" onclick="downloadImg(this)" download="my-meme.jpg">Download</a>
-                    <button class="btn" onclick="onUploadImg()">Share</button>
+                    <a title="Download meme" href="#" class="btn download" onclick="downloadImg(this)" download="my-meme.jpg">
+                        <img src="/img/icons/download.svg"
+                        alt="Download symbol">
+                        <span>Download</span>
+                    </a>
+                    <button title="Share meme on FB" class="btn share" onclick="onUploadImg()">
+                        <img src="/img/icons/share.svg"
+                        alt="Share symbol">
+                        <span>Share</span>
+                    </button>
                 </div>
 
             </div>

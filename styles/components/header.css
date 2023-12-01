@@ -5,9 +5,10 @@
     grid-template-columns: 120px 1fr 1fr 120px;
     padding: 25px 0;
     background-color: green;
-    border-radius: 50px;
+    border-radius: 2em;
     margin-block: 20px;
     margin-inline: 20px;
+    background-image: linear-gradient(to right, var(--clrSec2) , var(--clrSec-2));
 }
 
 .main-header .logo {

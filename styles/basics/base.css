@@ -7,7 +7,7 @@ body {
     margin: 0;
     font-size: 1.3125rem;
     background-color: var(--clrPrimaryBase);
-    color: var(--clrPrimary2); 
+    color: var(--clrPrimary3); 
 }
 
 img {
@@ -16,7 +16,11 @@ img {
 }
 
 a {
-    color: var(--clrPrimary2); 
+    color: var(--clrPrimary3); 
     text-decoration: none;
+}
+
+button, .btn {
+    cursor: pointer;
 }
 

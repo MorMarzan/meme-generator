@@ -27,7 +27,7 @@ function renderMeme() {
 
     const elImg = new Image()
     const imgId = getImgById(meme.selectedImgId)
-    elImg.src = (imgId) ? imgId.url : 'img/2.jpg'
+    elImg.src = (imgId) ? imgId.url : 'img/memes/2.jpg'
 
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)

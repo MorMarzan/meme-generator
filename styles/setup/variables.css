@@ -2,10 +2,21 @@
 :root {
 
     /* color */
-    --clrPrimary2: white;       /* font color */
+    --clrPrimary3: #FFFFFF;       /* font and btn color */
+    --clrPrimary2: #EBEEF3;       /* txt input bg */
     --clrPrimary1: #383B42;     /* section bg */
     --clrPrimaryBase: #22252c; /* body bg */
-    --clrPrimary-1: #000;
+    /* --clrPrimary-1: #000; */
+
+    --clrSec3: #1E7CD3;         /* share btn */
+    --clrSec2: #0F9BB4;         /* header left grad */
+    --clrSec1: #32AAC9;         /* switch line btn */
+    --clrSecBase: #19A59F;      /* bg font handlers */
+    --clrSec-1: #3AC34F;        /* add line btn */
+    --clrSec-2: #30BB72;        /* header right grad */
+
+    --clrThirdBase: #D82A37;     /* remove line btn */
+    --clrThird-1: #8F44BB;       /* dowlad line btn */
 
     /* layout  */
     /* --card-layout-margin: 80px; */
@@ -14,7 +25,8 @@
 
     --l: 1250px;
     --m: 800px;
-    --s: 600px;
+    --s: 320px;
+    /* --s: 600px; */
 }
 
 

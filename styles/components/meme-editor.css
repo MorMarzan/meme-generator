@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 30px 1fr 30px 1fr 30px;
     justify-items: center;
+    
 }
 
 .editor .canvas-container {
@@ -10,18 +11,109 @@
 
 .editor .control-panel {
     grid-column: 4;
+    justify-self: stretch;
+
     display: grid;
     align-items: center;
-    justify-items: center;
+    /* justify-items: center; */
+
+    padding: 1em 2em;
+
+    background-color: var(--clrPrimary1);
+    border-radius: var(--border-radius);
 }
 
-.canvas-container {
+.editor .canvas-container {
     width: 400px;
     height: 400px;
     /* width: 60vw;
     height: 80vh; */
 }
 
-canvas {
+.editor canvas {
     border: 1px solid black;
+}
+
+.editor .font-handlers {
+    background-color: var(--clrSecBase);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    /* grid-auto-flow: dense; */
+    justify-items: center;
+    gap: 1em;
+}
+
+.editor label:has(> input[type="color"]) {
+    display: block;
+    cursor: pointer;
+}
+
+.editor input[type="color"] {
+    visibility: hidden;
+}
+
+.editor label:has(> input[type="color"]) img {
+    height: 100%;
+}
+
+.editor button, .btn {
+    width: 50px;
+    height: 50px;
+    /* box-shadow: 0 0 0 black; */
+    background-color: var(--clrPrimary3);
+    border: none;
+}
+
+.editor .btn.remove-line {
+    background-color: var(--clrThirdBase);
+}
+
+.editor .btn.add-line {
+    background-color: var(--clrSec-1);
+}
+
+.editor .btn.switch-line {
+    background-color: var(--clrSec1);
+}
+
+.editor .loads-handlers .btn {
+    width: unset;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.editor .loads-handlers img {
+    /* height: 100%; */
+    width: 20px;
+}
+.editor .btn.share {
+    background-color: var(--clrSec3);
+}
+
+.editor .btn.download {
+    background-color: var(--clrThird-1);
+}
+
+.editor .lines-handlers {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    gap: 1em;
+}
+
+.editor .fonts {
+    grid-column: 1 / span 3;
+    width: 100%;
+}
+
+.loads-handlers {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+}
+
+.editor input[type="text"] {
+    align-self: stretch;
+    border-radius: 2em;
 }

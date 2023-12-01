@@ -7,6 +7,7 @@
 /* not clean css, but this is the only way I managed to control the canvas size */
 body .hide {
     /* opacity: 0; */
+
     display: none;
 }
 

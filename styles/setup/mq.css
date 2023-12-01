@@ -27,7 +27,7 @@
         grid-column: 1;
     }
 
-    .canvas-container {
+    .editor .canvas-container {
         width: 600px;
         height: 600px;
         /* width: 70vw;
@@ -51,11 +51,15 @@
         padding: 0;
     }
 
-    .canvas-container {
+    .editor .canvas-container {
         width: 320px;
         height: 320px;
         /* width: 90vw;
         height: 50vh; */
+    }
+
+    .editor .control-panel {
+        padding: 1em 0.5em;
     }
     
 }
