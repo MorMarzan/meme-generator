@@ -39,6 +39,8 @@ let gMeme = {
     ]
 }
 
+let gCanvasSize
+
 
 function getMeme() {
     return gMeme
@@ -46,6 +48,11 @@ function getMeme() {
 
 function setImg(imgId) {
     gMeme.selectedImgId = imgId
+}
+
+function saveCanvasSize(size) {
+    // {w: gElCanvas.width, h: gElCanvas.height}
+    gCanvasSize = size
 }
 
 /* txt line handling funcs */
@@ -224,7 +231,7 @@ function _createSticker(url) {
     return {
         url,
         size: 40,
-        x: 0,
-        y: 0
+        x: gCanvasSize.w/2 - 20,
+        y: gCanvasSize.h/2 -20
     }
 }
