@@ -30,7 +30,7 @@ function getImgById(imgId) {
 }
 
 /* private funcs */
-function _createImg(url = 'img/2.jpg', keywords = ['sweet', 'funny']) {
+function _createImg(url = 'img/memes/2.jpg', keywords = ['sweet', 'funny']) {
     return {
         id: makeId(),
         url,
@@ -40,6 +40,6 @@ function _createImg(url = 'img/2.jpg', keywords = ['sweet', 'funny']) {
 
 function _createImgs() {
     for (let i = 1; i < 19; i++) {
-        gImgs.push(_createImg('img/'+i+'.jpg'))
+        gImgs.push(_createImg('img/memes/'+i+'.jpg'))
     }
 }
