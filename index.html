@@ -40,7 +40,7 @@
                 </canvas>
             </div>
             <div class="control-panel">
-                <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)">
+                <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)" onclick="onSelectLine()">
 
                 <div class="lines-handlers">
                     <button class="btn switch-line" title="Switch focused text line" onclick="onSwitchLine()">
@@ -49,33 +49,33 @@
                     <button class="btn add-line" title="Add text line" onclick="onAddline()">
                         <img src="/img/icons/+.svg" alt="Plus symbol">
                     </button>
-                    <button class="btn remove-line" title="Remove focused text line" onclick="onRemoveLine()">
+                    <button class="btn remove-line" title="Remove focused item" onclick="onRemoveItem()">
                         <img src="/img/icons/trash.svg" alt="Trash symbol">
                     </button>
-                    <button class="btn move-line" title="Move focused text line down" onclick="onMoveLine(1)">↓
+                    <button class="btn move-line" title="Move focused item down" onclick="onMoveItem(1)">↓
                         <!-- <img src="/img/icons/trash.svg" alt="Trash symbol"> -->
                     </button>
-                    <button class="btn move-line" title="Move focused text line up" onclick="onMoveLine(-1)">↑
+                    <button class="btn move-line" title="Move focused item up" onclick="onMoveItem(-1)">↑
                         <!-- <img src="/img/icons/trash.svg" alt="Trash symbol"> -->
                     </button>
 
                 </div>
 
                 <div class="font-handlers">
-                    <button class="btn" title="Increase font size" onclick="onSetTxtSize(1)">
+                    <button class="btn" title="Increase focused item size" onclick="onSetItemSize(1)">
                         <img src="/img/icons/A+.svg" alt="A+ symbol">
                     </button>
-                    <button class="btn" title="Decrease font size" onclick="onSetTxtSize(-1)">
+                    <button class="btn" title="Decrease focused item size" onclick="onSetItemSize(-1)">
                         <img src="/img/icons/A-.svg" alt="A- symbol">
                     </button>
 
-                    <button class="btn" title="Align left" onclick="onSetAlignment('right')">
+                    <button class="btn" title="Align text left" onclick="onSetAlignment('right')">
                         <img src="/img/icons/align-left.svg" alt="Align left symbol">
                     </button>
-                    <button class="btn" title="Align center" onclick="onSetAlignment('center')">
+                    <button class="btn" title="Align text center" onclick="onSetAlignment('center')">
                         <img src="/img/icons/align-center.svg" alt="Align center symbol">
                     </button>
-                    <button class="btn" title="Align right" onclick="onSetAlignment('left')">
+                    <button class="btn" title="Align text right" onclick="onSetAlignment('left')">
                         <img src="/img/icons/align-right.svg" alt="Align right symbol">
                     </button>
 

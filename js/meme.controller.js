@@ -33,17 +33,21 @@ function renderMeme() {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
         lines.forEach((line, idx) => {
             drawText(line, idx)
-            // drawText(line, (meme.selectedLineIdx === idx))
         })
-        frameSelected(selectedLine)
-        eltxtEditor.value = selectedLine.txt
-        elColorInputs[0].value = selectedLine.color
-        elColorInputs[1].value = selectedLine.stroke
-        elFontSelect.value = selectedLine.font
+        if (meme.selectedObj === 'line') {
+            const coor = getTextLeftTopCoor(selectedLine)
+            drawRect(coor.x, coor.y, selectedLine.width, selectedLine.size)
+            focusTxtEditor()
+        }
+        if (meme.stickers.length) drawStickers(meme)
+
     }
 
-    if (meme.stickers.length) drawStickers(meme)
-        
+    eltxtEditor.value = selectedLine.txt
+    elColorInputs[0].value = selectedLine.color
+    elColorInputs[1].value = selectedLine.stroke
+    elFontSelect.value = selectedLine.font
+
 }
 
 function onImgSelect(imgId) {
@@ -83,7 +87,7 @@ function setLineCoors(meme) {
 }
 
 /* drawing funcs */
-function drawText(line, idx, isSelected = false) {
+function drawText(line, idx) {
     const { txt, color, stroke, size, align, font, x, y } = line
     gCtx.lineWidth = 2
     gCtx.strokeStyle = stroke
@@ -96,25 +100,6 @@ function drawText(line, idx, isSelected = false) {
 
     setLineWidth(idx, gCtx.measureText(txt).width)
 
-    // if (isSelected) {
-    //     const txtWidth = gCtx.measureText(txt).width
-    //     switch (align) {
-    //         case 'right':
-    //             x = x - (txtWidth) / 2
-    //             break
-    //         case 'left':
-    //             x = x + (txtWidth) / 2
-    //     }
-    //     drawRect(x, y, txtWidth + 5, size + 5)
-    // }
-}
-
-function frameSelected(selectedLine) {
-    let { size: h, width: w } = selectedLine
-    // const pad = 5
-    const coor = getTextLeftTopCoor(selectedLine)
-    // drawRect(coor.x - pad / 2, coor.y - pad / 2, w + pad, h + pad)
-    drawRect(coor.x, coor.y, w, h)
 }
 
 function drawRect(x, y, w, h) {
@@ -129,24 +114,20 @@ function drawRect(x, y, w, h) {
     gCtx.lineWidth = 1
     gCtx.strokeStyle = 'white'
     gCtx.strokeRect(x, y, w, h)
-    // gCtx.strokeRect(x - w / 2, y - h / 2, w, h)
 }
 
 function drawStickers(meme) {
     const { stickers } = meme
-    stickers.forEach(sticker => {
+    stickers.forEach((sticker, idx) => {
         const elSticker = new Image()
         elSticker.src = sticker.url
         elSticker.onload = () => {
             gCtx.drawImage(elSticker, sticker.x, sticker.y, sticker.size, sticker.size)
+            if ((meme.selectedObj === 'sticker') && (meme.selectedStickerIdx === idx)) {
+                drawRect(sticker.x, sticker.y, sticker.size, sticker.size)
+            }
         }
     })
-}
-
-/* stickers handlig funcs */
-function onAddSticker(stickerSrc) {
-    addSticker(stickerSrc)
-    renderMeme()
 }
 
 /* txt line handling funcs */
@@ -158,27 +139,19 @@ function onSetLineTxt(newTxt) {
 function onSwitchLine() {
     switchLine()
     renderMeme()
-    focusTxtEditor()
 }
 
 function onAddline() {
     addLine()
     renderMeme()
-    focusTxtEditor()
 }
 
-function onRemoveLine() {
-    removeLine()
-    renderMeme()
-    focusTxtEditor()
-}
-
-function onMoveLine(dir) {
-    moveLine(dir)
+function onSelectLine() {
+    selectLine()
     renderMeme()
 }
 
-/* user change txt style funcs */
+/* txt line style change funcs */
 function onSetColor(color) {
     setColor(color)
     renderMeme()
@@ -189,19 +162,36 @@ function onSetSrokeColor(color) {
     renderMeme()
 }
 
-function onSetTxtSize(diff) {
-    setTxtSize(diff)
-    renderMeme()
-}
-
 function onSetAlignment(dir) {
     setAlignment(dir)
     renderMeme()
 }
 
 function onSetFontFamily(font) {
-    console.log('font', font)
     setFontFamily(font)
+    renderMeme()
+}
+
+/* sticker&lines mult handling funcs */
+function onRemoveItem() {
+    removeItem()
+    renderMeme()
+    // focusTxtEditor()
+}
+
+function onMoveItem(dir) {
+    moveItem(dir)
+    renderMeme()
+}
+
+function onSetItemSize(diff) {
+    setItemSize(diff)
+    renderMeme()
+}
+
+/* stickers handlig funcs */
+function onAddSticker(stickerSrc) {
+    addSticker(stickerSrc)
     renderMeme()
 }
 
@@ -242,14 +232,13 @@ function addTouchListeners() {
 function onDown(ev) {
     // console.log('onDown')
     const pos = getEvPos(ev)
-    // console.log('pos', pos)
-    const lineClicked = getLineClickedIdx(pos)
-    // console.log('lineClicked', lineClicked)
-    if (lineClicked === -1) return
+    const objClicked = getObjClickedIdx(pos)
+    // console.log('objClicked', objClicked)
 
-    selectLine(lineClicked)
+    if (!objClicked.obj) return
+    (objClicked.obj === 'sticker') ? selectSticker(objClicked.idx) : selectLine(objClicked.idx)
+
     renderMeme()
-    focusTxtEditor() //not working from here
 
     // setCircleDrag(true)
     // //Save the pos we start from

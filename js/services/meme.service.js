@@ -2,8 +2,8 @@
 
 let gMeme = {
     selectedImgId: 2,
+    selectedObj: 'line',
     selectedLineIdx: 0,
-    // selectedStickerId: 0,
     selectedStickerIdx: 0,
     lines: [
         {
@@ -27,16 +27,15 @@ let gMeme = {
         // {
         //     url: 'img/stickers/angry.svg',
         //     size: 40,
-        //         x: 0,
-        //         y: 0
+        //     x: 0,
+        //     y: 0
         // },
         // {
         //     url: 'img/stickers/sad.svg',
         //     size: 40,
-        //         x: 50,
-        //         y: 0
+        //     x: 50,
+        //     y: 0
         // }
-
     ]
 }
 
@@ -52,13 +51,16 @@ function setImg(imgId) {
 /* txt line handling funcs */
 function setLineTxt(newTxt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = newTxt
+    // selectLine(gMeme.selectedLineIdx)
 }
 
-function selectLine(lineIdx) {
+function selectLine(lineIdx = gMeme.selectedLineIdx) {
     gMeme.selectedLineIdx = lineIdx
+    gMeme.selectedObj = 'line'
 }
 
 function switchLine() {
+    if (gMeme.selectedObj === 'sticker') selectLine()
     if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
         gMeme.selectedLineIdx = 0
     } else gMeme.selectedLineIdx++
@@ -68,70 +70,121 @@ function switchLine() {
 
 function addLine() {
     gMeme.lines.push(_createLine())
+    const newLineIdx = gMeme.lines.length - 1
     gMeme.selectedLineIdx = gMeme.lines.length - 1
+
+    selectLine(newLineIdx)
     // const newLine = _createLine()
     // gMeme.lines.splice(1, 0, newLine)
 }
 
-function removeLine() {
+/* txt line style change funcs */
+function setColor(color) {
+    if (gMeme.selectedObj === 'sticker') {
+        console.log('Avialable for text only')
+        return
+    }
+    gMeme.lines[gMeme.selectedLineIdx].color = color
+}
+
+function setStrokeColor(color) {
+    if (gMeme.selectedObj === 'sticker') {
+        console.log('Avialable for text only')
+        return
+    }
+    gMeme.lines[gMeme.selectedLineIdx].stroke = color
+}
+
+function setAlignment(dir) {
+    if (gMeme.selectedObj === 'sticker') {
+        console.log('Avialable for text only')
+        return
+    }
+    gMeme.lines[gMeme.selectedLineIdx].align = dir
+}
+
+function setFontFamily(font) {
+    if (gMeme.selectedObj === 'sticker') {
+        console.log('Avialable for text only')
+        return
+    }
+    gMeme.lines[gMeme.selectedLineIdx].font = font
+}
+
+/* sticker&lines mult handling funcs */
+function removeItem() {
+    //of sticker is focused
+    if (gMeme.selectedObj === 'sticker') {
+        gMeme.stickers.splice(gMeme.selectedStickerIdx, 1)
+        if (gMeme.stickers.length) gMeme.selectedStickerIdx = 0
+        else selectLine()
+        return
+    }
+    //if line is focused:
     if (gMeme.lines.length === 1) return
     gMeme.lines.splice(gMeme.selectedLineIdx, 1)
     gMeme.selectedLineIdx = 0
 }
 
-function moveLine(dir) {
+function moveItem(dir) {
+    //of sticker is focused
+    if (gMeme.selectedObj === 'sticker') {
+        gMeme.stickers[gMeme.selectedStickerIdx].y += dir
+        return gMeme.stickers[gMeme.selectedStickerIdx].y
+    }
+    //if line is focused:
     gMeme.lines[gMeme.selectedLineIdx].y += dir
     return gMeme.lines[gMeme.selectedLineIdx].y
 }
 
-/* sticker handling funcs */
-function addSticker(stickerUrl) {
-    gMeme.stickers.push(_createSticker(stickerUrl))
-    gMeme.selectedStickerIdx = gMeme.stickers.length - 1
-    // setSticker(stickerId)
-}
-
-/* user change txt style funcs */
-function setColor(color) {
-    gMeme.lines[gMeme.selectedLineIdx].color = color
-}
-
-function setStrokeColor(color) {
-    gMeme.lines[gMeme.selectedLineIdx].stroke = color
-}
-
-function setTxtSize(diff) {
+function setItemSize(diff) {
+    //of sticker is focused
+    if (gMeme.selectedObj === 'sticker') {
+        let stickerSize = gMeme.stickers[gMeme.selectedStickerIdx].size
+        if ((stickerSize >= 65 && diff > 0) || (stickerSize <= 20 && diff < 0)) return //65 limit because of the original img size
+        gMeme.stickers[gMeme.selectedStickerIdx].size += diff
+        return
+    }
+    //if line is focused:
     let memeSize = gMeme.lines[gMeme.selectedLineIdx].size
     if ((memeSize >= 80 && diff > 0) || (memeSize <= 20 && diff < 0)) return
     gMeme.lines[gMeme.selectedLineIdx].size += diff
 }
 
-function setAlignment(dir) {
-    gMeme.lines[gMeme.selectedLineIdx].align = dir
+/* sticker handling funcs */
+function addSticker(stickerUrl) {
+    gMeme.stickers.push(_createSticker(stickerUrl))
+    const newStickerIdx = gMeme.stickers.length - 1
+    gMeme.selectedStickerIdx = newStickerIdx
+
+    selectSticker(newStickerIdx)
+    // setSticker(stickerId)
 }
 
-function setFontFamily(font) {
-    gMeme.lines[gMeme.selectedLineIdx].font = font
+function selectSticker(stickerIdx) {
+    gMeme.selectedStickerIdx = stickerIdx
+    gMeme.selectedObj = 'sticker'
 }
 
 /* track and handle elements place on canvas */
-function getLineClickedIdx(clickedPos) {
-    const clickedLine = gMeme.lines.findIndex(line => {
+function getObjClickedIdx(clickedPos) {
+    const clickedLineIdx = gMeme.lines.findIndex(line => {
         const lineTopCoor = getTextLeftTopCoor(line)
         return clickedPos.x >= lineTopCoor.x && clickedPos.x <= lineTopCoor.x + line.width
             && clickedPos.y >= lineTopCoor.y && clickedPos.y <= lineTopCoor.y + line.size
-        // return clickedPos.x >= line.x - line.width/2 && clickedPos.x <= line.x - line.width/2 + line.width
-        //     && clickedPos.y >= line.y - line.size/2 && clickedPos.y <= line.y - line.size/2 + line.size
     })
-    // return (clickedLine) ? clickedLine : null
-    return clickedLine
 
-    // const { pos } = gCircle
-    // // Calc the distance between two dots
-    // const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
-    // // console.log('distance', distance)
-    // //If its smaller then the radius of the circle we are inside
-    // return distance <= gCircle.size
+    if (clickedLineIdx !== -1) return ({ obj: 'line', idx: clickedLineIdx })
+
+    const clickedStickerIdx = gMeme.stickers.findIndex(sticker => {
+        return clickedPos.x >= sticker.x && clickedPos.x <= sticker.x + sticker.size
+            && clickedPos.y >= sticker.y && clickedPos.y <= sticker.y + sticker.size
+    })
+
+    if (clickedStickerIdx !== -1) return ({ obj: 'sticker', idx: clickedStickerIdx })
+
+    return ({ obj: '', idx: -1 })
+
 }
 
 function getTextLeftTopCoor(line) {
@@ -158,7 +211,7 @@ function setLineWidth(idx, width) {
 /* private funcs */
 function _createLine() {
     return {
-        txt: 'I Love you',
+        txt: 'Your text here',
         size: 40,
         color: '#FFFFFF',
         stroke: '#000000',
@@ -171,7 +224,7 @@ function _createSticker(url) {
     return {
         url,
         size: 40,
-            x: 0,
-            y: 0
+        x: 0,
+        y: 0
     }
 }
