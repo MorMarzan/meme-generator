@@ -43,31 +43,25 @@ function renderMeme() {
     }
 }
 
-function frameSelected(selectedLine) {
-    let { size: h, width: w } = selectedLine
-    const pad = 5
-    const coor = getTextLeftTopCoor(selectedLine)
-    drawRect(coor.x - pad / 2, coor.y - pad / 2, w + pad, h + pad)
+function onImgSelect(imgId) {
+    setImg(imgId)
+    
+    const elEditor = document.querySelector(".editor")
+    const elGallery = document.querySelector(".gallery")
+    elGallery.classList.add("hide")
+    elEditor.classList.remove("hide")
+    focusTxtEditor()
+    
+    resizeCanvas()
+    renderMeme()
 }
 
-
-// function handleLines(meme) {
-//     const canvasHeight = gElCanvas.height
-//     const vertAligns = [canvasHeight * 0.2, canvasHeight * 0.8, canvasHeight / 2]
-//     const horAlign = gElCanvas.width / 2
-//     const { lines } = meme
-//     return lines.map((line, idx) =>
-//     ({
-//         txt: line.txt,
-//         color: line.color,
-//         size: line.size,
-//         align: line.align,
-//         x: horAlign,
-//         y: (idx <= 1) ? vertAligns[idx] : vertAligns[vertAligns.length - 1],
-//         isSelected: (meme.selectedLineIdx === idx)
-//     })
-//     )
-// }
+/* canvas helper funcs */
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container')
+    gElCanvas.width = elContainer.offsetWidth
+    gElCanvas.height = elContainer.offsetHeight
+}
 
 function setLineCoors(meme) {
     const canvasHeight = gElCanvas.height
@@ -112,6 +106,13 @@ function drawText(line, idx, isSelected = false) {
     // }
 }
 
+function frameSelected(selectedLine) {
+    let { size: h, width: w } = selectedLine
+    const pad = 5
+    const coor = getTextLeftTopCoor(selectedLine)
+    drawRect(coor.x - pad / 2, coor.y - pad / 2, w + pad, h + pad)
+}
+
 function drawRect(x, y, w, h) {
     gCtx.beginPath()
     gCtx.lineWidth = 1
@@ -120,30 +121,11 @@ function drawRect(x, y, w, h) {
     // gCtx.strokeRect(x - w / 2, y - h / 2, w, h)
 }
 
-/* user inputs funcs */
-function onImgSelect(imgId) {
-    setImg(imgId)
-    
-    const elEditor = document.querySelector(".editor")
-    const elGallery = document.querySelector(".gallery")
-    elGallery.classList.add("hide")
-    elEditor.classList.remove("hide")
-    focusTxtEditor()
-    
-    resizeCanvas()
-    renderMeme()
-}
-
+/* txt line handling funcs */
 function onSetLineTxt(newTxt) {
     setLineTxt(newTxt)
     renderMeme()
 }
-
-// function onSelectLine() {
-//     selectLine()
-//     renderMeme()
-//     focusTxtEditor()
-// }
 
 function onSwitchLine() {
     switchLine()
@@ -161,12 +143,6 @@ function onRemoveline() {
     removeLine()
     renderMeme()
     focusTxtEditor()
-}
-
-function focusTxtEditor() {
-    const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
-    eltxtEditor.focus()
-    // console.log('trying to focus')
 }
 
 /* user change txt style funcs */
@@ -196,14 +172,14 @@ function onSetFontFamily(font) {
     renderMeme()
 }
 
-/* dowload */
-function downloadImg(elLink) {
-    const imgContent = gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
-    elLink.href = imgContent
+/* ux oriented funcs */
+function focusTxtEditor() {
+    const eltxtEditor = document.querySelector(".editor .control-panel input[type=text]")
+    eltxtEditor.focus()
+    // console.log('trying to focus')
 }
 
-/* track and handl user touch/click on canvas */
-
+/* track and handle user touch/click on canvas */
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
@@ -271,12 +247,6 @@ function onUp() {
     // document.body.style.cursor = 'grab'
 }
 
-function resizeCanvas() {
-    const elContainer = document.querySelector('.canvas-container')
-    gElCanvas.width = elContainer.offsetWidth
-    gElCanvas.height = elContainer.offsetHeight
-}
-
 function getEvPos(ev) {
 
     let pos = {
@@ -339,6 +309,12 @@ function doUploadImg(imgDataUrl, onSuccess) {
     }
     XHR.open('POST', '//ca-upload.com/here/upload.php')
     XHR.send(formData)
+}
+
+/* dowload */
+function downloadImg(elLink) {
+    const imgContent = gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
+    elLink.href = imgContent
 }
 
 

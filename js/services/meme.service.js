@@ -27,20 +27,11 @@ function getMeme() {
     return gMeme
 }
 
-function updateLineCoors(idx, coor) {
-    gMeme.lines[idx].x = coor.x
-    gMeme.lines[idx].y = coor.y
-}
-
-function setLineWidth(idx, width) {
-    gMeme.lines[idx].width = width
-}
-
-/* user inputs funcs */
 function setImg(imgId) {
     gMeme.selectedImgId = imgId
 }
 
+/* txt line handling funcs */
 function setLineTxt(newTxt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = newTxt
 }
@@ -93,7 +84,7 @@ function setFontFamily(font) {
     gMeme.lines[gMeme.selectedLineIdx].font = font
 }
 
-/* track and handl user touch/click on canvas */
+/* track and handle elements place on canvas */
 function getLineClickedIdx(clickedPos) {
     const clickedLine = gMeme.lines.findIndex(line => {
         const lineTopCoor = getTextLeftTopCoor(line)
@@ -123,6 +114,15 @@ function getTextLeftTopCoor(line) {
             x = x + (w) / 2
     }
     return { x: x - w / 2, y: y - h / 2 }
+}
+
+function updateLineCoors(idx, coor) {
+    gMeme.lines[idx].x = coor.x
+    gMeme.lines[idx].y = coor.y
+}
+
+function setLineWidth(idx, width) {
+    gMeme.lines[idx].width = width
 }
 
 
