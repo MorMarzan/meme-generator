@@ -117,3 +117,10 @@
     align-self: stretch;
     border-radius: 2em;
 }
+
+.editor .stickers-container {
+    display: grid;
+    justify-content: center;
+    grid-auto-flow: column;
+    gap: 10px;
+}

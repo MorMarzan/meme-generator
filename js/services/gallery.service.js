@@ -13,6 +13,13 @@
 //     },
 // ]
 
+// let gStickers = [
+//     {
+//         id: '1',
+//         url: 'img/stickers/angry.svg'
+//     }
+// ]
+
 let gImgs = []
 
 _createImgs()
@@ -28,6 +35,11 @@ function getImgById(imgId) {
     const currImg = gImgs.find(img => imgId === img.id)
     return (currImg) ? currImg : null
 }
+
+// function getStickerById(stickerId) {
+//     const currSticker = gStickers.find(sticker => stickerId === sticker.id)
+//     return (currSticker) ? currSticker : null
+// }
 
 /* private funcs */
 function _createImg(url = 'img/memes/2.jpg', keywords = ['sweet', 'funny']) {

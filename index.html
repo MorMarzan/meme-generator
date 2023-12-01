@@ -99,7 +99,16 @@
                     </label>
                 </div>
 
-                <div class="stickers-container"></div>
+                <div class="stickers-container">
+                    <!-- <button class="btn" title="Put sticker" onclick="onAddSticker('1')">
+                        <img src="/img/stickers/angry.svg" alt="Angry emoji">
+                    </button> -->
+                    <img class="btn" src="/img/stickers/angry.svg" alt="Angry emoji" title="Put sticker" onclick="onAddSticker(this.src)">
+                    <img class="btn" src="/img/stickers/happy.svg" alt="Happy emoji" title="Put sticker" onclick="onAddSticker(this.src)">
+                    <img class="btn" src="/img/stickers/sad.svg" alt="Sad emoji" title="Put sticker" onclick="onAddSticker(this.src)">
+                    <img class="btn" src="/img/stickers/shocked.svg" alt="Shocked emoji" title="Put sticker" onclick="onAddSticker(this.src)">
+
+                </div>
 
                 <div class="loads-handlers">
                     <a title="Download meme" href="#" class="btn download" onclick="downloadImg(this)" download="my-meme.jpg">

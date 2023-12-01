@@ -11,7 +11,7 @@ function onInit() {
     addListeners()
     resizeCanvas()
     renderMeme()
-    
+
 }
 
 /* render and its helper funcs */
@@ -41,17 +41,20 @@ function renderMeme() {
         elColorInputs[1].value = selectedLine.stroke
         elFontSelect.value = selectedLine.font
     }
+
+    if (meme.stickers.length) drawStickers(meme)
+        
 }
 
 function onImgSelect(imgId) {
     setImg(imgId)
-    
+
     const elEditor = document.querySelector(".editor")
     const elGallery = document.querySelector(".gallery")
     elGallery.classList.add("hide")
     elEditor.classList.remove("hide")
     focusTxtEditor()
-    
+
     resizeCanvas()
     renderMeme()
 }
@@ -108,17 +111,42 @@ function drawText(line, idx, isSelected = false) {
 
 function frameSelected(selectedLine) {
     let { size: h, width: w } = selectedLine
-    const pad = 5
+    // const pad = 5
     const coor = getTextLeftTopCoor(selectedLine)
-    drawRect(coor.x - pad / 2, coor.y - pad / 2, w + pad, h + pad)
+    // drawRect(coor.x - pad / 2, coor.y - pad / 2, w + pad, h + pad)
+    drawRect(coor.x, coor.y, w, h)
 }
 
 function drawRect(x, y, w, h) {
+    //put padding
+    const pad = 5
+    x = x - pad / 2
+    y = y - pad / 2
+    w += pad
+    h += pad
+
     gCtx.beginPath()
     gCtx.lineWidth = 1
     gCtx.strokeStyle = 'white'
     gCtx.strokeRect(x, y, w, h)
     // gCtx.strokeRect(x - w / 2, y - h / 2, w, h)
+}
+
+function drawStickers(meme) {
+    const { stickers } = meme
+    stickers.forEach(sticker => {
+        const elSticker = new Image()
+        elSticker.src = sticker.url
+        elSticker.onload = () => {
+            gCtx.drawImage(elSticker, sticker.x, sticker.y, sticker.size, sticker.size)
+        }
+    })
+}
+
+/* stickers handlig funcs */
+function onAddSticker(stickerSrc) {
+    addSticker(stickerSrc)
+    renderMeme()
 }
 
 /* txt line handling funcs */

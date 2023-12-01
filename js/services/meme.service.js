@@ -1,8 +1,10 @@
 'use strict'
 
-var gMeme = {
+let gMeme = {
     selectedImgId: 2,
     selectedLineIdx: 0,
+    // selectedStickerId: 0,
+    selectedStickerIdx: 0,
     lines: [
         {
             txt: 'I Love you',
@@ -20,8 +22,24 @@ var gMeme = {
             align: 'center',
             font: 'Impact'
         }
+    ],
+    stickers: [
+        // {
+        //     url: 'img/stickers/angry.svg',
+        //     size: 40,
+        //         x: 0,
+        //         y: 0
+        // },
+        // {
+        //     url: 'img/stickers/sad.svg',
+        //     size: 40,
+        //         x: 50,
+        //         y: 0
+        // }
+
     ]
 }
+
 
 function getMeme() {
     return gMeme
@@ -49,21 +67,28 @@ function switchLine() {
 }
 
 function addLine() {
-    gMeme.lines.push(_creatLine())
-    gMeme.selectedLineIdx = gMeme.lines.length-1
-    // const newLine = _creatLine()
+    gMeme.lines.push(_createLine())
+    gMeme.selectedLineIdx = gMeme.lines.length - 1
+    // const newLine = _createLine()
     // gMeme.lines.splice(1, 0, newLine)
 }
 
 function removeLine() {
     if (gMeme.lines.length === 1) return
-    gMeme.lines.splice(gMeme.selectedLineIdx,1)
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1)
     gMeme.selectedLineIdx = 0
 }
 
 function moveLine(dir) {
     gMeme.lines[gMeme.selectedLineIdx].y += dir
     return gMeme.lines[gMeme.selectedLineIdx].y
+}
+
+/* sticker handling funcs */
+function addSticker(stickerUrl) {
+    gMeme.stickers.push(_createSticker(stickerUrl))
+    gMeme.selectedStickerIdx = gMeme.stickers.length - 1
+    // setSticker(stickerId)
 }
 
 /* user change txt style funcs */
@@ -130,9 +155,8 @@ function setLineWidth(idx, width) {
     gMeme.lines[idx].width = width
 }
 
-
 /* private funcs */
-function _creatLine() {
+function _createLine() {
     return {
         txt: 'I Love you',
         size: 40,
@@ -140,5 +164,14 @@ function _creatLine() {
         stroke: '#000000',
         align: 'center',
         font: 'Impact'
+    }
+}
+
+function _createSticker(url) {
+    return {
+        url,
+        size: 40,
+            x: 0,
+            y: 0
     }
 }
