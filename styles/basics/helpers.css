@@ -6,7 +6,7 @@
 
 /* not clean css, but this is the only way I managed to control the canvas size */
 body .hide {
-    display: none;
+    /* display: none; */
 }
 
 /* body .hide.gallery {

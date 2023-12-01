@@ -61,6 +61,11 @@ function removeLine() {
     gMeme.selectedLineIdx = 0
 }
 
+function moveLine(dir) {
+    gMeme.lines[gMeme.selectedLineIdx].y += dir
+    return gMeme.lines[gMeme.selectedLineIdx].y
+}
+
 /* user change txt style funcs */
 function setColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].color = color

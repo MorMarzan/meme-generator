@@ -139,10 +139,15 @@ function onAddline() {
     focusTxtEditor()
 }
 
-function onRemoveline() {
+function onRemoveLine() {
     removeLine()
     renderMeme()
     focusTxtEditor()
+}
+
+function onMoveLine(dir) {
+    moveLine(dir)
+    renderMeme()
 }
 
 /* user change txt style funcs */
