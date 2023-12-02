@@ -32,7 +32,7 @@ function renderMeme() {
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
         lines.forEach((line, idx) => drawText(line, idx))
-        
+
         if (meme.selectedObj === 'line') {
             const coor = getTextLeftTopCoor(selectedLine)
             drawRect(coor.x, coor.y, selectedLine.width, selectedLine.size)
@@ -146,11 +146,6 @@ function onSetSrokeColor(color) {
     renderMeme()
 }
 
-function onSetAlignment(dir) {
-    setAlignment(dir)
-    renderMeme()
-}
-
 function onSetFontFamily(font) {
     setFontFamily(font)
     renderMeme()
@@ -170,6 +165,11 @@ function onMoveItem(dir) {
 
 function onSetItemSize(diff) {
     setItemSize(diff)
+    renderMeme()
+}
+
+function onSetAlignment(dir) {
+    setAlignment(dir)
     renderMeme()
 }
 

@@ -111,14 +111,6 @@ function setStrokeColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].stroke = color
 }
 
-function setAlignment(dir) {
-    if (gMeme.selectedObj === 'sticker') {
-        console.log('Avialable for text only')
-        return
-    }
-    gMeme.lines[gMeme.selectedLineIdx].align = dir
-}
-
 function setFontFamily(font) {
     if (gMeme.selectedObj === 'sticker') {
         console.log('Avialable for text only')
@@ -165,6 +157,25 @@ function setItemSize(diff) {
     let memeSize = gMeme.lines[gMeme.selectedLineIdx].size
     if ((memeSize >= 80 && diff > 0) || (memeSize <= 20 && diff < 0)) return
     gMeme.lines[gMeme.selectedLineIdx].size += diff
+}
+
+function setAlignment(dir) {
+    if (gMeme.selectedObj === 'sticker') {
+        const selectedSticker = gMeme.stickers[gMeme.selectedStickerIdx]
+        //dir counter intuitive becuse the way canvas align txt
+        switch(dir) {
+            case 'left':
+                selectedSticker.x = gCanvasSize.w - selectedSticker.size
+                break;
+                case 'right':
+                selectedSticker.x = 0
+              break;
+            default:
+                selectedSticker.x = (gCanvasSize.w - selectedSticker.size) / 2
+          }
+        return
+    }
+    gMeme.lines[gMeme.selectedLineIdx].align = dir
 }
 
 /* sticker handling funcs */
