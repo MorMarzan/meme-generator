@@ -20,6 +20,16 @@ function memeEditorInit() {
 
 }
 
+function onRestartMeme() {
+    const elEditor = document.querySelector(".editor")
+    const elGallery = document.querySelector(".gallery")
+    elGallery.classList.remove("hide")
+    elEditor.classList.add("hide")
+
+    restartMeme()
+
+}
+
 /* render and its helper funcs */
 function renderMeme() {
     const meme = getMeme()

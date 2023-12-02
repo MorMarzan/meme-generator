@@ -1,45 +1,52 @@
 'use strict'
 
 let gCanvasSize
+let gMeme 
 
-let gMeme = {
-    selectedImgId: 2,
-    selectedItemType: 'lines',
-    selectedLineIdx: 0,
-    selectedStickerIdx: 0,
-    isDrag: false,
-    lines: [
-        {
-            txt: 'I Love you',
-            size: 40,
-            color: '#FFFFFF',
-            stroke: '#000000',
-            align: 'center',
-            font: 'Impact',
-        },
-        {
-            txt: 'I Love you more',
-            size: 30,
-            color: '#FFFFFF',
-            stroke: '#000000',
-            align: 'center',
-            font: 'Impact'
-        }
-    ],
-    stickers: [
-        // {
-        //     url: 'img/stickers/angry.svg',
-        //     size: 40,
-        //     x: 0,
-        //     y: 0
-        // },
-        // {
-        //     url: 'img/stickers/sad.svg',
-        //     size: 40,
-        //     x: 50,
-        //     y: 0
-        // }
-    ]
+// let gMeme = {
+//     selectedImgId: 2,
+//     selectedItemType: 'lines',
+//     selectedLineIdx: 0,
+//     selectedStickerIdx: 0,
+//     isDrag: false,
+//     lines: [
+//         {
+//             txt: 'I Love you',
+//             size: 40,
+//             color: '#FFFFFF',
+//             stroke: '#000000',
+//             align: 'center',
+//             font: 'Impact',
+//         },
+//         {
+//             txt: 'I Love you more',
+//             size: 30,
+//             color: '#FFFFFF',
+//             stroke: '#000000',
+//             align: 'center',
+//             font: 'Impact'
+//         }
+//     ],
+//     stickers: [
+//         // {
+//         //     url: 'img/stickers/angry.svg',
+//         //     size: 40,
+//         //     x: 0,
+//         //     y: 0
+//         // },
+//         // {
+//         //     url: 'img/stickers/sad.svg',
+//         //     size: 40,
+//         //     x: 50,
+//         //     y: 0
+//         // }
+//     ]
+// }
+
+_createMeme()
+
+function restartMeme() {
+    _createMeme()
 }
 
 function getMeme() {
@@ -280,5 +287,34 @@ function _createSticker(url) {
         size: 40,
         x: gCanvasSize.w / 2 - 20,
         y: gCanvasSize.h / 2 - 20
+    }
+}
+
+function _createMeme() {
+    gMeme = {
+        selectedImgId: 2,
+        selectedItemType: 'lines',
+        selectedLineIdx: 0,
+        selectedStickerIdx: 0,
+        isDrag: false,
+        lines: [
+            {
+                txt: 'I Love you',
+                size: 40,
+                color: '#FFFFFF',
+                stroke: '#000000',
+                align: 'center',
+                font: 'Impact',
+            },
+            {
+                txt: 'I Love you more',
+                size: 30,
+                color: '#FFFFFF',
+                stroke: '#000000',
+                align: 'center',
+                font: 'Impact'
+            }
+        ],
+        stickers: []
     }
 }
