@@ -54,17 +54,15 @@
         padding: 1em 0.5em;
     }
 
-    .editor button, .btn {
+    .editor button,
+    .btn {
         width: 40px;
         height: 40px;
     }
 
-    .editor input, .editor select {
+    .editor input,
+    .editor select {
         font-size: 1em;
-    }
-
-    .editor .btn.share {
-        font-size: 1rem;
     }
 
     .gallery .imgs-container {
@@ -76,5 +74,9 @@
         height: 40px;
     }
 
-    
+    dialog {
+        width: 100vw;
+        height: 100vh;
+    }
+
 }

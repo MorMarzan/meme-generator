@@ -15,7 +15,7 @@
         <nav class="main-nav">
             <ul class="main-nav-list flex clean-list">
                 <li onclick="onRestartMeme()"><a href="#">Gallery</a></li>
-                <li><a href="#">About</a></li>
+                <li onclick="onOpenDialog()"><a href="#">About</a></li>
             </ul>
         </nav>
         <!-- <button class="btn-toggle-menu" onclick="toggleMenu()">☰</button> -->
@@ -26,7 +26,8 @@
         <section class="gallery">
             <div class="control-panel">
                 <label>
-                    <input type="search" list="keywords" name="keywords" placeholder="Search" onchange="onSetImgFilter(this.value)">
+                    <input type="search" list="keywords" name="keywords" placeholder="Search"
+                        onchange="onSetImgFilter(this.value)">
                 </label>
             </div>
             <div class="imgs-container">
@@ -120,15 +121,16 @@
 
     </main>
 
-    <!-- <footer class="main-footer flex space-between align-center">
-        <small>all rights 2023</small>
-    </footer> -->
+    <datalist id="keywords"></datalist>
 
-    <datalist id="keywords">
-        <!-- <option value="Funny"></option>
-        <option value="Sad"></option>
-        <option value="Animals"></option> -->
-    </datalist>
+    <dialog class="about">
+        <button class="close" onclick="onCloseDialog()">X</button>
+        <h2>About</h2>
+        <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt accusamus placeat voluptates aliquid
+            ipsum soluta. Fugit rem voluptatum facere quis officiis eveniet iusto unde porro?
+        </p>
+    </dialog>
 
     <script src="js/services/util.service.js"></script>
     <script src="js/services/storage.service.js"></script>

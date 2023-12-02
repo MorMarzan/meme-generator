@@ -32,8 +32,8 @@
 }
 
 .editor .canvas-container {
-    width: 550px;
-    height: 550px;
+    width: 500px;
+    height: 500px;
     /* width: 60vw;
     height: 80vh; */
     cursor: grab;
@@ -116,7 +116,7 @@
 }
 .editor .btn.share {
     background-color: var(--clrSec3);
-    font-size: 1.3125rem;
+    font-size: inherit;
 }
 
 .editor .btn.download {
