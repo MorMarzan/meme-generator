@@ -41,8 +41,9 @@
     }
 
     .main-layout {
-        grid-template-columns:
-            minmax(15px, 1fr) minmax(auto, var(--s)) minmax(15px, 1fr);
+        /* grid-template-columns:
+            minmax(15px, 1fr) minmax(auto, var(--s)) minmax(15px, 1fr); */
+        grid-template-columns: 20px auto 20px;
     }
 
     .editor .canvas-container {

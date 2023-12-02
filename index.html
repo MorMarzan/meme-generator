@@ -10,15 +10,17 @@
 
 <body class="main-layout" onload="onInit()">
 
+    <div class="main-screen" onclick="toggleMenu()"></div>
+
     <header class="main-header full">
-        <div class="logo">Logo</div>
+        <div class="logo">LOGO</div>
         <nav class="main-nav">
-            <ul class="main-nav-list flex clean-list">
+            <ul class="main-nav-list flex clean-list" onclick="closeMenueIfMobile()">
                 <li onclick="onRestartMeme()"><a href="#">Gallery</a></li>
                 <li onclick="onOpenDialog()"><a href="#">About</a></li>
             </ul>
         </nav>
-        <!-- <button class="btn-toggle-menu" onclick="toggleMenu()">☰</button> -->
+        <button class="btn-toggle-menu" onclick="toggleMenu()">☰</button>
     </header>
 
     <main class="main-content">

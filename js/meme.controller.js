@@ -82,9 +82,9 @@ function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
     gElCanvas.width = elContainer.offsetWidth
     gElCanvas.height = elContainer.offsetHeight
-    saveCanvasSize({w: gElCanvas.width, h: gElCanvas.height})
+    saveCanvasSize({ w: gElCanvas.width, h: gElCanvas.height })
     setInitialLinesCoor()
-    
+
 }
 
 /* drawing funcs */
@@ -230,10 +230,10 @@ function addTouchListeners() {
 function onDown(ev) {
     const pos = getEvPos(ev)
     const itemClicked = getItemClicked(pos)
-    
+
     if (!itemClicked.type) return
     (itemClicked.type === 'sticker') ? selectSticker(itemClicked.idx) : selectLine(itemClicked.idx)
-    
+
     setDrag(true)
     gStartPos = pos
     ev.target.parentNode.classList.add('grabbing')
@@ -347,6 +347,18 @@ function onOpenDialog() {
 function onCloseDialog() {
     const dialog = document.querySelector("dialog")
     dialog.close()
+}
+
+/* mobile nav */
+function toggleMenu() {
+    document.body.classList.toggle('menu-open')
+}
+
+function closeMenueIfMobile() {
+    const w = window.innerWidth;
+    if (w <= 768) {
+        document.body.classList.remove('menu-open')
+    }
 }
 
 
