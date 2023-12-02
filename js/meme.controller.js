@@ -329,6 +329,11 @@ function downloadImg(elLink) {
     elLink.href = imgContent
 }
 
+/* save */
+function onSaveMeme() {
+    saveMeme()
+}
+
 /* dialog */
 function onOpenDialog() {
     const dialog = document.querySelector("dialog")

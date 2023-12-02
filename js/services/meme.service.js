@@ -1,7 +1,9 @@
 'use strict'
 
+const STORAGE_KEY = 'memeDB'
 let gCanvasSize
-let gMeme 
+let gMeme
+let gMems 
 
 // let gMeme = {
 //     selectedImgId: 2,
@@ -43,10 +45,13 @@ let gMeme
 //     ]
 // }
 
+
 _createMeme()
+// _createMemes()
 
 function restartMeme() {
     _createMeme()
+    // gMeme = gMems[0]
 }
 
 function getMeme() {
@@ -317,4 +322,31 @@ function _createMeme() {
         ],
         stickers: []
     }
+}
+
+function _createMemes() {
+    gMems = loadFromStorage(STORAGE_KEY)
+    if (gMems && gMems.length) {
+        gMeme = gMems[0]
+        return
+    }
+    
+    // If no memes in storage - generate demo data
+    
+    _createMeme()
+    const defaultMemeDeepCopy = JSON.parse(JSON.stringify(gMeme))
+    // gMems.push(gMeme)
+    gMems = [defaultMemeDeepCopy]
+
+    _saveMemesToStorage()
+}
+
+function _saveMemesToStorage() {
+    saveToStorage(STORAGE_KEY, gMems)
+}
+
+function saveMeme() {
+    const memeDeepCopy = JSON.parse(JSON.stringify(gMeme))
+    gMems.push(memeDeepCopy)
+    _saveMemesToStorage()
 }
