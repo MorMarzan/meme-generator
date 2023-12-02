@@ -8,6 +8,7 @@ let gMeme = {
     selectedObj: 'line',
     selectedLineIdx: 0,
     selectedStickerIdx: 0,
+    isDrag: false,
     lines: [
         {
             txt: 'I Love you',
@@ -134,17 +135,6 @@ function removeItem() {
     gMeme.selectedLineIdx = 0
 }
 
-function moveItem(dir) {
-    //of sticker is focused
-    if (gMeme.selectedObj === 'sticker') {
-        gMeme.stickers[gMeme.selectedStickerIdx].y += dir
-        return gMeme.stickers[gMeme.selectedStickerIdx].y
-    }
-    //if line is focused:
-    gMeme.lines[gMeme.selectedLineIdx].y += dir
-    return gMeme.lines[gMeme.selectedLineIdx].y
-}
-
 function setItemSize(diff) {
     //of sticker is focused
     if (gMeme.selectedObj === 'sticker') {
@@ -163,16 +153,16 @@ function setAlignment(dir) {
     if (gMeme.selectedObj === 'sticker') {
         const selectedSticker = gMeme.stickers[gMeme.selectedStickerIdx]
         //dir counter intuitive becuse the way canvas align txt
-        switch(dir) {
+        switch (dir) {
             case 'left':
                 selectedSticker.x = gCanvasSize.w - selectedSticker.size
                 break;
-                case 'right':
+            case 'right':
                 selectedSticker.x = 0
-              break;
+                break;
             default:
                 selectedSticker.x = (gCanvasSize.w - selectedSticker.size) / 2
-          }
+        }
         return
     }
     gMeme.lines[gMeme.selectedLineIdx].align = dir
@@ -230,6 +220,16 @@ function setLineWidth(idx, width) {
     gMeme.lines[idx].width = width
 }
 
+function setDrag(isDrag) {
+    gMeme.isDrag = isDrag
+}
+
+function moveItem(dx, dy) {
+    const selected = (gMeme.selectedObj === 'sticker') ? gMeme.stickers[gMeme.selectedStickerIdx] : gMeme.lines[gMeme.selectedLineIdx]
+    selected.y += dy 
+    selected.x += dx 
+}
+
 /* private funcs */
 function _createLine() {
     return {
@@ -239,8 +239,8 @@ function _createLine() {
         stroke: '#000000',
         align: 'center',
         font: 'Impact',
-        x: gCanvasSize.w/2,
-        y: gCanvasSize.h/2 
+        x: gCanvasSize.w / 2,
+        y: gCanvasSize.h / 2
     }
 }
 
@@ -248,7 +248,7 @@ function _createSticker(url) {
     return {
         url,
         size: 40,
-        x: gCanvasSize.w/2 - 20,
-        y: gCanvasSize.h/2 -20
+        x: gCanvasSize.w / 2 - 20,
+        y: gCanvasSize.h / 2 - 20
     }
 }

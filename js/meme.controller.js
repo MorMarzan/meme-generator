@@ -158,11 +158,6 @@ function onRemoveItem() {
     // focusTxtEditor()
 }
 
-function onMoveItem(dir) {
-    moveItem(dir)
-    renderMeme()
-}
-
 function onSetItemSize(diff) {
     setItemSize(diff)
     renderMeme()
@@ -214,43 +209,35 @@ function addTouchListeners() {
 }
 
 function onDown(ev) {
-    // console.log('onDown')
     const pos = getEvPos(ev)
     const objClicked = getObjClickedIdx(pos)
-    // console.log('objClicked', objClicked)
-
+    
     if (!objClicked.obj) return
     (objClicked.obj === 'sticker') ? selectSticker(objClicked.idx) : selectLine(objClicked.idx)
+    
+    setDrag(true)
+    gStartPos = pos
+    ev.target.parentNode.classList.add('grabbing')
 
     renderMeme()
 
-    // setCircleDrag(true)
-    // //Save the pos we start from
-    // gStartPos = pos
-    // document.body.style.cursor = 'grabbing'
 }
 
 function onMove(ev) {
-    // console.log('onMove')
-    // const { isDrag } = getCircle()
-    // if (!isDrag) return
-    // console.log('Moving the circle')
+    const { isDrag } = getMeme()
+    if (!isDrag) return
 
-    // const pos = getEvPos(ev)
-    // // Calc the delta, the diff we moved
-    // const dx = pos.x - gStartPos.x
-    // const dy = pos.y - gStartPos.y
-    // moveCircle(dx, dy)
-    // // Save the last pos, we remember where we`ve been and move accordingly
-    // gStartPos = pos
-    // // The canvas is render again after every move
-    // renderCanvas()
+    const pos = getEvPos(ev)
+    const dx = pos.x - gStartPos.x
+    const dy = pos.y - gStartPos.y
+    moveItem(dx, dy)
+    gStartPos = pos
+    renderMeme()
 }
 
-function onUp() {
-    // console.log('onUp')
-    // setCircleDrag(false)
-    // document.body.style.cursor = 'grab'
+function onUp(ev) {
+    setDrag(false)
+    ev.target.parentNode.classList.remove('grabbing')
 }
 
 function getEvPos(ev) {

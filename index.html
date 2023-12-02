@@ -40,7 +40,8 @@
                 </canvas>
             </div>
             <div class="control-panel">
-                <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)" onclick="onSelectLine()">
+                <input type="text" placeholder="Your text here" oninput="onSetLineTxt(this.value)"
+                    onclick="onSelectLine()">
 
                 <div class="lines-handlers">
                     <button class="btn switch-line" title="Switch focused text line" onclick="onSwitchLine()">
@@ -51,12 +52,6 @@
                     </button>
                     <button class="btn remove-line" title="Remove focused item" onclick="onRemoveItem()">
                         <img src="img/icons/trash.svg" alt="Trash symbol">
-                    </button>
-                    <button class="btn move-line" title="Move focused item down" onclick="onMoveItem(1)">↓
-                        <!-- <img src="/img/icons/trash.svg" alt="Trash symbol"> -->
-                    </button>
-                    <button class="btn move-line" title="Move focused item up" onclick="onMoveItem(-1)">↑
-                        <!-- <img src="/img/icons/trash.svg" alt="Trash symbol"> -->
                     </button>
 
                 </div>
@@ -88,37 +83,35 @@
                     </select>
 
                     <label class="btn" title="Font color">
-                        <img src="img/icons/palette.svg"
-                            alt="Palette symbol">
+                        <img src="img/icons/palette.svg" alt="Palette symbol">
                         <input type="color" oninput="onSetColor(this.value)" value="#FFFFFF">
                     </label>
                     <label class="btn" title="Stroke color">
-                        <img src="img/icons/underlined-s.svg"
-                        alt="Stroke symbol">
+                        <img src="img/icons/underlined-s.svg" alt="Stroke symbol">
                         <input type="color" oninput="onSetSrokeColor(this.value)" value="#000000">
                     </label>
                 </div>
 
                 <div class="stickers-container">
-                    <!-- <button class="btn" title="Put sticker" onclick="onAddSticker('1')">
-                        <img src="/img/stickers/angry.svg" alt="Angry emoji">
-                    </button> -->
-                    <img class="btn" src="img/stickers/angry.svg" alt="Angry emoji" title="Put sticker" onclick="onAddSticker(this.src)">
-                    <img class="btn" src="img/stickers/happy.svg" alt="Happy emoji" title="Put sticker" onclick="onAddSticker(this.src)">
-                    <img class="btn" src="img/stickers/sad.svg" alt="Sad emoji" title="Put sticker" onclick="onAddSticker(this.src)">
-                    <img class="btn" src="img/stickers/shocked.svg" alt="Shocked emoji" title="Put sticker" onclick="onAddSticker(this.src)">
+                    <img class="btn" src="img/stickers/angry.svg" alt="Angry emoji" title="Put sticker"
+                        onclick="onAddSticker(this.src)">
+                    <img class="btn" src="img/stickers/happy.svg" alt="Happy emoji" title="Put sticker"
+                        onclick="onAddSticker(this.src)">
+                    <img class="btn" src="img/stickers/sad.svg" alt="Sad emoji" title="Put sticker"
+                        onclick="onAddSticker(this.src)">
+                    <img class="btn" src="img/stickers/shocked.svg" alt="Shocked emoji" title="Put sticker"
+                        onclick="onAddSticker(this.src)">
 
                 </div>
 
                 <div class="loads-handlers">
-                    <a title="Download meme" href="#" class="btn download" onclick="downloadImg(this)" download="my-meme.jpg">
-                        <img src="img/icons/download.svg"
-                        alt="Download symbol">
+                    <a title="Download meme" href="#" class="btn download" onclick="downloadImg(this)"
+                        download="my-meme.jpg">
+                        <img src="img/icons/download.svg" alt="Download symbol">
                         <span>Download</span>
                     </a>
                     <button title="Share meme on FB" class="btn share" onclick="onUploadImg()">
-                        <img src="img/icons/share.svg"
-                        alt="Share symbol">
+                        <img src="img/icons/share.svg" alt="Share symbol">
                         <span>Share</span>
                     </button>
                 </div>

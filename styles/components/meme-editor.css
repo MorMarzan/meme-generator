@@ -28,11 +28,17 @@
     height: 400px;
     /* width: 60vw;
     height: 80vh; */
+    cursor: grab;
+}
+
+.editor .canvas-container.grabbing {
+    cursor: grabbing;
 }
 
 .editor canvas {
     border: 1px solid black;
 }
+
 
 .editor .font-handlers {
     background-color: var(--clrSecBase);
