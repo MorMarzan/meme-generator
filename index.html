@@ -26,7 +26,8 @@
         <section class="gallery">
             <div class="control-panel">
                 <label>
-                    <input type="text" placeholder="Search" onclick="alert('Coming Soon!')">
+                    <!-- <input type="text" placeholder="Search" onclick="alert('Coming Soon!')"> -->
+                    <input type="text" list="keywords" name="keywords" placeholder="Keywords" oninput="onSetImgFilter(this.value)">
                 </label>
             </div>
             <div class="imgs-container">
@@ -74,7 +75,6 @@
                         <img src="img/icons/align-right.svg" alt="Align right symbol">
                     </button>
 
-                    <!-- <input list="fonts" name="font" placeholder="Impact" onchange="onSetFontFamily(this.value)"> -->
                     <select name="fonts" class="fonts" onchange="onSetFontFamily(this.value)">
                         <!-- <option value="">Impact</option> -->
                         <option value="Impact">Impact</option>
@@ -125,11 +125,11 @@
         <small>all rights 2023</small>
     </footer> -->
 
-    <!-- <datalist id="fonts">
-        <option value="Impact">Impact</option>
-        <option value="fantasy">fantasy</option>
-        <option value="monospace">monospace</option>
-    </datalist> -->
+    <datalist id="keywords">
+        <!-- <option value="Funny"></option>
+        <option value="Sad"></option>
+        <option value="Animals"></option> -->
+    </datalist>
 
     <script src="js/services/util.service.js"></script>
     <script src="js/services/storage.service.js"></script>

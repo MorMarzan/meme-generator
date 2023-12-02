@@ -13,22 +13,18 @@
 //     },
 // ]
 
-// let gStickers = [
-//     {
-//         id: '1',
-//         url: 'img/stickers/angry.svg'
-//     }
-// ]
-
 let gImgs = []
+let gKewords = ['funny', 'sad', 'animals']
+let gFilterBy = ''
+let gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
 _createImgs()
 
-var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
-
-
 function getImgs() {
-    return gImgs
+    if (!gFilterBy) return gImgs
+    let imgs = gImgs.filter(img => img.keywords.includes(gFilterBy))
+
+    return imgs
 }
 
 function getImgById(imgId) {
@@ -36,17 +32,21 @@ function getImgById(imgId) {
     return (currImg) ? currImg : null
 }
 
-// function getStickerById(stickerId) {
-//     const currSticker = gStickers.find(sticker => stickerId === sticker.id)
-//     return (currSticker) ? currSticker : null
-// }
+function setImgFilter(keyword) {
+    gFilterBy = keyword.toLowerCase()
+}
+
+function getKeywords() {
+    return gKewords
+}
 
 /* private funcs */
 function _createImg(url = 'img/memes/2.jpg', keywords = ['sweet', 'funny']) {
+    const radomIdx = getRandomInt(0, gKewords.length)
     return {
         id: makeId(),
         url,
-        keywords
+        keywords: [gKewords[radomIdx]]
     }
 }
 

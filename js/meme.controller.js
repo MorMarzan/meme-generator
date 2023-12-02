@@ -6,11 +6,16 @@ let gStartPos
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 function onInit() {
+    galleryInit()
+    memeEditorInit()
+}
+
+function memeEditorInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     addListeners()
     resizeCanvas()
-    setInitialLinesCoor()
+    // setInitialLinesCoor()
     renderMeme()
 
 }
@@ -68,6 +73,8 @@ function resizeCanvas() {
     gElCanvas.width = elContainer.offsetWidth
     gElCanvas.height = elContainer.offsetHeight
     saveCanvasSize({w: gElCanvas.width, h: gElCanvas.height})
+    setInitialLinesCoor()
+    
 }
 
 /* drawing funcs */
