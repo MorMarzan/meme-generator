@@ -1,5 +1,8 @@
 'use strict'
 
+// let gCanvasSize = {w: 400, h: 400}
+let gCanvasSize
+
 let gMeme = {
     selectedImgId: 2,
     selectedObj: 'line',
@@ -12,7 +15,7 @@ let gMeme = {
             color: '#FFFFFF',
             stroke: '#000000',
             align: 'center',
-            font: 'Impact'
+            font: 'Impact',
         },
         {
             txt: 'I Love you more',
@@ -39,9 +42,6 @@ let gMeme = {
     ]
 }
 
-let gCanvasSize
-
-
 function getMeme() {
     return gMeme
 }
@@ -53,6 +53,15 @@ function setImg(imgId) {
 function saveCanvasSize(size) {
     // {w: gElCanvas.width, h: gElCanvas.height}
     gCanvasSize = size
+}
+
+function setInitialLinesCoor() {
+    const horCenter = gCanvasSize.w / 2
+    const vertAligns = [gCanvasSize.h * 0.2, gCanvasSize.h * 0.8, gCanvasSize.h / 2]
+    gMeme.lines.forEach((line, idx) => {
+        line.x = horCenter
+        line.y = (idx <= 1) ? vertAligns[idx] : vertAligns[vertAligns.length - 1]
+    })
 }
 
 /* txt line handling funcs */
@@ -206,11 +215,6 @@ function getTextLeftTopCoor(line) {
     return { x: x - w / 2, y: y - h / 2 }
 }
 
-function updateLineCoors(idx, coor) {
-    gMeme.lines[idx].x = coor.x
-    gMeme.lines[idx].y = coor.y
-}
-
 function setLineWidth(idx, width) {
     gMeme.lines[idx].width = width
 }
@@ -223,7 +227,9 @@ function _createLine() {
         color: '#FFFFFF',
         stroke: '#000000',
         align: 'center',
-        font: 'Impact'
+        font: 'Impact',
+        x: gCanvasSize.w/2,
+        y: gCanvasSize.h/2 
     }
 }
 

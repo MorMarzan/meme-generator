@@ -10,6 +10,7 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
     addListeners()
     resizeCanvas()
+    setInitialLinesCoor()
     renderMeme()
 
 }
@@ -17,7 +18,6 @@ function onInit() {
 /* render and its helper funcs */
 function renderMeme() {
     const meme = getMeme()
-    setLineCoors(meme)
     const { lines } = meme
 
     const selectedLine = meme.lines[meme.selectedLineIdx]
@@ -31,9 +31,8 @@ function renderMeme() {
 
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-        lines.forEach((line, idx) => {
-            drawText(line, idx)
-        })
+        lines.forEach((line, idx) => drawText(line, idx))
+        
         if (meme.selectedObj === 'line') {
             const coor = getTextLeftTopCoor(selectedLine)
             drawRect(coor.x, coor.y, selectedLine.width, selectedLine.size)
@@ -69,22 +68,6 @@ function resizeCanvas() {
     gElCanvas.width = elContainer.offsetWidth
     gElCanvas.height = elContainer.offsetHeight
     saveCanvasSize({w: gElCanvas.width, h: gElCanvas.height})
-}
-
-function setLineCoors(meme) {
-    const canvasHeight = gElCanvas.height
-    const vertAligns = [canvasHeight * 0.2, canvasHeight * 0.8, canvasHeight / 2]
-    const horAlign = gElCanvas.width / 2
-    const { lines } = meme
-    return lines.forEach((line, idx) => {
-        if (!line.x || !line.y) {
-            const coor = {
-                x: horAlign,
-                y: (idx <= 1) ? vertAligns[idx] : vertAligns[vertAligns.length - 1],
-            }
-            updateLineCoors(idx, coor)
-        }
-    })
 }
 
 /* drawing funcs */
