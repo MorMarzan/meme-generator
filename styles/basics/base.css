@@ -2,12 +2,16 @@
     box-sizing: border-box;
 }
 
+html {
+    font-family: poppins, serif;
+    color: var(--clrPrimary3); 
+}
+
 body {
     /* margin: 0.9375rem; */
     margin: 0;
     font-size: 1.3125rem;
     background-color: var(--clrPrimaryBase);
-    color: var(--clrPrimary3); 
 }
 
 img {
@@ -22,5 +26,13 @@ a {
 
 button, .btn {
     cursor: pointer;
+}
+
+button {
+    color: var(--clrPrimary3); 
+}
+
+input, select {
+    font-family: poppins, serif;
 }
 

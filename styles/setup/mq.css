@@ -25,13 +25,12 @@
 
     .editor .control-panel {
         grid-column: 1;
+        gap: 1em;
     }
 
     .editor .canvas-container {
         width: 600px;
         height: 600px;
-        /* width: 70vw;
-        height: 50vh; */
     }
 }
 
@@ -46,20 +45,36 @@
             minmax(15px, 1fr) minmax(auto, var(--s)) minmax(15px, 1fr);
     }
 
-    .gallery .imgs-container {
-        grid-template-columns: repeat(2, minmax(auto, 1fr));
-        padding: 0;
-    }
-
     .editor .canvas-container {
         width: 320px;
         height: 320px;
-        /* width: 90vw;
-        height: 50vh; */
     }
 
     .editor .control-panel {
         padding: 1em 0.5em;
     }
+
+    .editor button, .btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .editor input, .editor select {
+        font-size: 1em;
+    }
+
+    .editor .btn.share {
+        font-size: 1rem;
+    }
+
+    .gallery .imgs-container {
+        grid-template-columns: repeat(2, minmax(auto, 1fr));
+        padding: 0;
+    }
+
+    .gallery input[type="search"] {
+        height: 40px;
+    }
+
     
 }

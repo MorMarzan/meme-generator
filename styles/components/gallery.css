@@ -2,6 +2,7 @@
     background-color: var(--clrPrimary1);
     border-radius: var(--border-radius);
     padding: 1.2em;
+    margin-block-end: 20px;
 }
 
 .gallery .control-panel {
@@ -22,4 +23,14 @@
 
 .gallery .img-preview img:hover {
     filter: grayscale(1);
+}
+
+.gallery input[type="search"] {
+    border: none;
+    border-radius: var(--border-radius-full);
+    background-color: var(--clrPrimaryBase);
+    font-size: 1em;
+    padding-inline-start: 1em;
+    height: 50px;
+
 }
