@@ -4,7 +4,7 @@ let gCanvasSize
 
 let gMeme = {
     selectedImgId: 2,
-    selectedItemType: 'line',
+    selectedItemType: 'lines',
     selectedLineIdx: 0,
     selectedStickerIdx: 0,
     isDrag: false,
@@ -72,11 +72,11 @@ function setLineTxt(newTxt) {
 
 function selectLine(lineIdx = gMeme.selectedLineIdx) {
     gMeme.selectedLineIdx = lineIdx
-    gMeme.selectedItemType = 'line'
+    gMeme.selectedItemType = 'lines'
 }
 
 function switchLine() {
-    if (gMeme.selectedItemType === 'sticker') selectLine()
+    if (gMeme.selectedItemType === 'stickers') selectLine()
     if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
         gMeme.selectedLineIdx = 0
     } else gMeme.selectedLineIdx++
@@ -96,7 +96,7 @@ function addLine() {
 
 /* txt line style change funcs */
 function setColor(color) {
-    if (gMeme.selectedItemType === 'sticker') {
+    if (gMeme.selectedItemType === 'stickers') {
         console.log('Avialable for text only')
         return
     }
@@ -104,7 +104,7 @@ function setColor(color) {
 }
 
 function setStrokeColor(color) {
-    if (gMeme.selectedItemType === 'sticker') {
+    if (gMeme.selectedItemType === 'stickers') {
         console.log('Avialable for text only')
         return
     }
@@ -112,7 +112,7 @@ function setStrokeColor(color) {
 }
 
 function setFontFamily(font) {
-    if (gMeme.selectedItemType === 'sticker') {
+    if (gMeme.selectedItemType === 'stickers') {
         console.log('Avialable for text only')
         return
     }
@@ -122,7 +122,7 @@ function setFontFamily(font) {
 /* sticker&lines mult handling funcs */
 function removeItem() {
     //of sticker is focused
-    if (gMeme.selectedItemType === 'sticker') {
+    if (gMeme.selectedItemType === 'stickers') {
         gMeme.stickers.splice(gMeme.selectedStickerIdx, 1)
         if (gMeme.stickers.length) gMeme.selectedStickerIdx = 0
         else selectLine()
@@ -136,7 +136,7 @@ function removeItem() {
 
 function setItemSize(diff) {
     //of sticker is focused
-    if (gMeme.selectedItemType === 'sticker') {
+    if (gMeme.selectedItemType === 'stickers') {
         let stickerSize = gMeme.stickers[gMeme.selectedStickerIdx].size
         if ((stickerSize >= 65 && diff > 0) || (stickerSize <= 20 && diff < 0)) return //65 limit because of the original img size
         gMeme.stickers[gMeme.selectedStickerIdx].size += diff
@@ -146,25 +146,56 @@ function setItemSize(diff) {
     let memeSize = gMeme.lines[gMeme.selectedLineIdx].size
     if ((memeSize >= 80 && diff > 0) || (memeSize <= 20 && diff < 0)) return
     gMeme.lines[gMeme.selectedLineIdx].size += diff
+
 }
 
-function setAlignment(dir) {
-    if (gMeme.selectedItemType === 'sticker') {
-        const selectedSticker = gMeme.stickers[gMeme.selectedStickerIdx]
-        //dir counter intuitive becuse the way canvas align txt
+// function setAlignment(dir) {
+//     if (gMeme.selectedItemType === 'stickers') {
+//         const selectedSticker = gMeme.stickers[gMeme.selectedStickerIdx]
+//         //dir counter intuitive becuse the way canvas align txt
+//         switch (dir) {
+//             case 'left':
+//                 selectedSticker.x = gCanvasSize.w - selectedSticker.size
+//                 break;
+//             case 'right':
+//                 selectedSticker.x = 0
+//                 break;
+//             default:
+//                 selectedSticker.x = (gCanvasSize.w - selectedSticker.size) / 2
+//         }
+//         return
+//     }
+//     gMeme.lines[gMeme.selectedLineIdx].align = dir
+// }
+
+function setItemAlignment(dir) {
+    const selectedIdx = (gMeme.selectedItemType === 'stickers') ? gMeme.selectedStickerIdx : gMeme.selectedLineIdx
+    const selectedItem = gMeme[gMeme.selectedItemType][selectedIdx]
+
+    if (gMeme.selectedItemType === 'stickers') {
         switch (dir) {
             case 'left':
-                selectedSticker.x = gCanvasSize.w - selectedSticker.size
+                selectedItem.x = gCanvasSize.w - selectedItem.size
                 break;
             case 'right':
-                selectedSticker.x = 0
+                selectedItem.x = 0
                 break;
             default:
-                selectedSticker.x = (gCanvasSize.w - selectedSticker.size) / 2
+                selectedItem.x = (gCanvasSize.w - selectedItem.size) / 2
         }
         return
     }
-    gMeme.lines[gMeme.selectedLineIdx].align = dir
+
+    switch (dir) {
+        case 'left':
+            selectedItem.x = gCanvasSize.w - selectedItem.width / 2
+            break;
+        case 'right':
+            selectedItem.x = selectedItem.width / 2
+            break;
+        default:
+            selectedItem.x = gCanvasSize.w / 2
+    }
 }
 
 /* sticker handling funcs */
@@ -179,7 +210,7 @@ function addSticker(stickerUrl) {
 
 function selectSticker(stickerIdx) {
     gMeme.selectedStickerIdx = stickerIdx
-    gMeme.selectedItemType = 'sticker'
+    gMeme.selectedItemType = 'stickers'
 }
 
 /* track and handle elements place on canvas */
@@ -224,9 +255,9 @@ function setDrag(isDrag) {
 }
 
 function moveItem(dx, dy) {
-    const selected = (gMeme.selectedItemType === 'sticker') ? gMeme.stickers[gMeme.selectedStickerIdx] : gMeme.lines[gMeme.selectedLineIdx]
-    selected.y += dy 
-    selected.x += dx 
+    const selected = (gMeme.selectedItemType === 'stickers') ? gMeme.stickers[gMeme.selectedStickerIdx] : gMeme.lines[gMeme.selectedLineIdx]
+    selected.y += dy
+    selected.x += dx
 }
 
 /* private funcs */

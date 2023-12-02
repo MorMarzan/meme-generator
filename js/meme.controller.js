@@ -33,7 +33,7 @@ function renderMeme() {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
         lines.forEach((line, idx) => drawText(line, idx))
 
-        if (meme.selectedItemType === 'line') {
+        if (meme.selectedItemType === 'lines') {
             const coor = getTextLeftTopCoor(selectedLine)
             drawRect(coor.x, coor.y, selectedLine.width, selectedLine.size)
             focusTxtEditor()
@@ -77,7 +77,8 @@ function drawText(line, idx) {
     gCtx.strokeStyle = stroke
     gCtx.fillStyle = color
     gCtx.font = `${size}px ${font}`
-    gCtx.textAlign = align
+    // gCtx.textAlign = align
+    gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
     gCtx.fillText(txt, x, y)
     gCtx.strokeText(txt, x, y)
@@ -107,7 +108,7 @@ function drawStickers(meme) {
         elSticker.src = sticker.url
         elSticker.onload = () => {
             gCtx.drawImage(elSticker, sticker.x, sticker.y, sticker.size, sticker.size)
-            if ((meme.selectedItemType === 'sticker') && (meme.selectedStickerIdx === idx)) {
+            if ((meme.selectedItemType === 'stickers') && (meme.selectedStickerIdx === idx)) {
                 drawRect(sticker.x, sticker.y, sticker.size, sticker.size)
             }
         }
@@ -164,7 +165,8 @@ function onSetItemSize(diff) {
 }
 
 function onSetAlignment(dir) {
-    setAlignment(dir)
+    setItemAlignment(dir)
+    // setAlignment(dir)
     renderMeme()
 }
 
