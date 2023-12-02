@@ -33,7 +33,7 @@ function renderMeme() {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
         lines.forEach((line, idx) => drawText(line, idx))
 
-        if (meme.selectedObj === 'line') {
+        if (meme.selectedItemType === 'line') {
             const coor = getTextLeftTopCoor(selectedLine)
             drawRect(coor.x, coor.y, selectedLine.width, selectedLine.size)
             focusTxtEditor()
@@ -107,7 +107,7 @@ function drawStickers(meme) {
         elSticker.src = sticker.url
         elSticker.onload = () => {
             gCtx.drawImage(elSticker, sticker.x, sticker.y, sticker.size, sticker.size)
-            if ((meme.selectedObj === 'sticker') && (meme.selectedStickerIdx === idx)) {
+            if ((meme.selectedItemType === 'sticker') && (meme.selectedStickerIdx === idx)) {
                 drawRect(sticker.x, sticker.y, sticker.size, sticker.size)
             }
         }
@@ -210,10 +210,10 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    const objClicked = getObjClickedIdx(pos)
+    const itemClicked = getItemClicked(pos)
     
-    if (!objClicked.obj) return
-    (objClicked.obj === 'sticker') ? selectSticker(objClicked.idx) : selectLine(objClicked.idx)
+    if (!itemClicked.type) return
+    (itemClicked.type === 'sticker') ? selectSticker(itemClicked.idx) : selectLine(itemClicked.idx)
     
     setDrag(true)
     gStartPos = pos

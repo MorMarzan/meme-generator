@@ -1,11 +1,10 @@
 'use strict'
 
-// let gCanvasSize = {w: 400, h: 400}
 let gCanvasSize
 
 let gMeme = {
     selectedImgId: 2,
-    selectedObj: 'line',
+    selectedItemType: 'line',
     selectedLineIdx: 0,
     selectedStickerIdx: 0,
     isDrag: false,
@@ -73,11 +72,11 @@ function setLineTxt(newTxt) {
 
 function selectLine(lineIdx = gMeme.selectedLineIdx) {
     gMeme.selectedLineIdx = lineIdx
-    gMeme.selectedObj = 'line'
+    gMeme.selectedItemType = 'line'
 }
 
 function switchLine() {
-    if (gMeme.selectedObj === 'sticker') selectLine()
+    if (gMeme.selectedItemType === 'sticker') selectLine()
     if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
         gMeme.selectedLineIdx = 0
     } else gMeme.selectedLineIdx++
@@ -97,7 +96,7 @@ function addLine() {
 
 /* txt line style change funcs */
 function setColor(color) {
-    if (gMeme.selectedObj === 'sticker') {
+    if (gMeme.selectedItemType === 'sticker') {
         console.log('Avialable for text only')
         return
     }
@@ -105,7 +104,7 @@ function setColor(color) {
 }
 
 function setStrokeColor(color) {
-    if (gMeme.selectedObj === 'sticker') {
+    if (gMeme.selectedItemType === 'sticker') {
         console.log('Avialable for text only')
         return
     }
@@ -113,7 +112,7 @@ function setStrokeColor(color) {
 }
 
 function setFontFamily(font) {
-    if (gMeme.selectedObj === 'sticker') {
+    if (gMeme.selectedItemType === 'sticker') {
         console.log('Avialable for text only')
         return
     }
@@ -123,7 +122,7 @@ function setFontFamily(font) {
 /* sticker&lines mult handling funcs */
 function removeItem() {
     //of sticker is focused
-    if (gMeme.selectedObj === 'sticker') {
+    if (gMeme.selectedItemType === 'sticker') {
         gMeme.stickers.splice(gMeme.selectedStickerIdx, 1)
         if (gMeme.stickers.length) gMeme.selectedStickerIdx = 0
         else selectLine()
@@ -137,7 +136,7 @@ function removeItem() {
 
 function setItemSize(diff) {
     //of sticker is focused
-    if (gMeme.selectedObj === 'sticker') {
+    if (gMeme.selectedItemType === 'sticker') {
         let stickerSize = gMeme.stickers[gMeme.selectedStickerIdx].size
         if ((stickerSize >= 65 && diff > 0) || (stickerSize <= 20 && diff < 0)) return //65 limit because of the original img size
         gMeme.stickers[gMeme.selectedStickerIdx].size += diff
@@ -150,7 +149,7 @@ function setItemSize(diff) {
 }
 
 function setAlignment(dir) {
-    if (gMeme.selectedObj === 'sticker') {
+    if (gMeme.selectedItemType === 'sticker') {
         const selectedSticker = gMeme.stickers[gMeme.selectedStickerIdx]
         //dir counter intuitive becuse the way canvas align txt
         switch (dir) {
@@ -180,27 +179,27 @@ function addSticker(stickerUrl) {
 
 function selectSticker(stickerIdx) {
     gMeme.selectedStickerIdx = stickerIdx
-    gMeme.selectedObj = 'sticker'
+    gMeme.selectedItemType = 'sticker'
 }
 
 /* track and handle elements place on canvas */
-function getObjClickedIdx(clickedPos) {
+function getItemClicked(clickedPos) {
     const clickedLineIdx = gMeme.lines.findIndex(line => {
         const lineTopCoor = getTextLeftTopCoor(line)
         return clickedPos.x >= lineTopCoor.x && clickedPos.x <= lineTopCoor.x + line.width
             && clickedPos.y >= lineTopCoor.y && clickedPos.y <= lineTopCoor.y + line.size
     })
 
-    if (clickedLineIdx !== -1) return ({ obj: 'line', idx: clickedLineIdx })
+    if (clickedLineIdx !== -1) return ({ type: 'line', idx: clickedLineIdx })
 
     const clickedStickerIdx = gMeme.stickers.findIndex(sticker => {
         return clickedPos.x >= sticker.x && clickedPos.x <= sticker.x + sticker.size
             && clickedPos.y >= sticker.y && clickedPos.y <= sticker.y + sticker.size
     })
 
-    if (clickedStickerIdx !== -1) return ({ obj: 'sticker', idx: clickedStickerIdx })
+    if (clickedStickerIdx !== -1) return ({ type: 'sticker', idx: clickedStickerIdx })
 
-    return ({ obj: '', idx: -1 })
+    return ({ type: '', idx: -1 })
 
 }
 
@@ -225,7 +224,7 @@ function setDrag(isDrag) {
 }
 
 function moveItem(dx, dy) {
-    const selected = (gMeme.selectedObj === 'sticker') ? gMeme.stickers[gMeme.selectedStickerIdx] : gMeme.lines[gMeme.selectedLineIdx]
+    const selected = (gMeme.selectedItemType === 'sticker') ? gMeme.stickers[gMeme.selectedStickerIdx] : gMeme.lines[gMeme.selectedLineIdx]
     selected.y += dy 
     selected.x += dx 
 }
