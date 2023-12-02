@@ -26,8 +26,7 @@
         <section class="gallery">
             <div class="control-panel">
                 <label>
-                    <!-- <input type="text" placeholder="Search" onclick="alert('Coming Soon!')"> -->
-                    <input type="text" list="keywords" name="keywords" placeholder="Keywords" oninput="onSetImgFilter(this.value)">
+                    <input type="search" list="keywords" name="keywords" placeholder="Keywords" onchange="onSetImgFilter(this.value)">
                 </label>
             </div>
             <div class="imgs-container">
