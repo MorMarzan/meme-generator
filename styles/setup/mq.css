@@ -9,6 +9,10 @@
         grid-template-columns: 50px 1fr 1fr 50px;
     }
 
+    .main-content {
+        align-self: start;
+    }
+
     .gallery .imgs-container {
         grid-template-columns: repeat(3, minmax(auto, 1fr));
         gap: 0.83em;

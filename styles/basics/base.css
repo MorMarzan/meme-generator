@@ -12,6 +12,7 @@ body {
     margin: 0;
     font-size: 1.3125rem;
     background-color: var(--clrPrimaryBase);
+    height: 100dvh;
 }
 
 img {
