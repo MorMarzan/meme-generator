@@ -1,4 +1,9 @@
 @font-face {
-    font-family: poppins;
-    src: url(../../fonts/poppins/Poppins-Regular.ttf);
-  }
+  font-family: poppins;
+  src: url(../../fonts/poppins/Poppins-Regular.ttf);
+}
+
+@font-face {
+  font-family: lilita;
+  src: url(../../fonts/lilitaOne/LilitaOne-Regular.ttf);
+}

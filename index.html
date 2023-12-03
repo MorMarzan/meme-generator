@@ -10,17 +10,17 @@
 
 <body class="main-layout" onload="onInit()">
 
-    <div class="main-screen" onclick="toggleMenu()"></div>
+    <div class="main-screen" onclick="onToggleMenu()"></div>
 
     <header class="main-header full">
-        <div class="logo">LOGO</div>
+        <div class="logo" onclick="onRestartMeme()">Mor's Memes</div>
         <nav class="main-nav">
             <ul class="main-nav-list flex clean-list" onclick="closeMenueIfMobile()">
                 <li onclick="onRestartMeme()"><a href="#">Gallery</a></li>
                 <li onclick="onOpenDialog()"><a href="#">About</a></li>
             </ul>
         </nav>
-        <button class="btn-toggle-menu" onclick="toggleMenu()">☰</button>
+        <button class="btn-toggle-menu" onclick="onToggleMenu()">☰</button>
     </header>
 
     <main class="main-content">
@@ -118,8 +118,8 @@
                     </a>
                     <!-- <button title="Save meme" class="btn save" onclick="onSaveMeme()"> -->
                     <!-- <button title="Save meme" class="btn save" onclick="alert('Coming Soon!')"> -->
-                        <!-- <img src="img/icons/share.svg" alt="Share symbol"> -->
-                        <!-- 💾
+                    <!-- <img src="img/icons/share.svg" alt="Share symbol"> -->
+                    <!-- 💾
                         <span>Save</span>
                     </button> -->
                 </div>
@@ -133,11 +133,17 @@
 
     <dialog class="about">
         <button class="close" onclick="onCloseDialog()">X</button>
-        <h2>About</h2>
+        <img src="img/extra/cortoon-mor.jpeg" alt="My profile pic" class="profile">
+        <h2>About Mor's Memes</h2>
         <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt accusamus placeat voluptates aliquid
-            ipsum soluta. Fugit rem voluptatum facere quis officiis eveniet iusto unde porro?
+            Hey! I'm Mor. Junior full stack developer in Coding Academy. I know life are not always nice to us, so I've
+            built this app to help us laugh moore. It's purely Vanilla JS.
         </p>
+        <h3>Feedback me!
+            <a href="mailto:mormarzan@gmail.com" class="btn">
+                <img src="img/icons/mail.svg" alt="Mail symbol">
+            </a>
+        </h3>
     </dialog>
 
     <script src="js/services/util.service.js"></script>

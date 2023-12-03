@@ -46,6 +46,10 @@
         grid-template-columns: 20px auto 20px;
     }
 
+    .main-header {
+        grid-template-columns: 50px 3fr 1fr 50px;
+    }
+
     .editor .canvas-container {
         width: 320px;
         height: 320px;

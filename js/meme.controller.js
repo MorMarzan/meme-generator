@@ -204,15 +204,10 @@ function focusTxtEditor() {
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
-    //Listen for resize ev
-    // window.addEventListener('resize', () => {
-    // resizeCanvas()
-    //Calc the center of the canvas
-    // const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
-    //Create the circle in the center
-    // createCircle(center)
-    // renderMeme()
-    // })
+    window.addEventListener('resize', () => {
+        resizeCanvas()
+        renderMeme()
+    })
 }
 
 function addMouseListeners() {
@@ -355,7 +350,7 @@ function onCloseDialog() {
 }
 
 /* mobile nav */
-function toggleMenu() {
+function onToggleMenu() {
     document.body.classList.toggle('menu-open')
 }
 

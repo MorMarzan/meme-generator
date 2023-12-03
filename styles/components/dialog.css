@@ -10,21 +10,23 @@ dialog {
 
     border: none;
     border-radius: var(--border-radius);
-    text-align: center;
+    text-align: justify;
     background-image: linear-gradient(to right, var(--clrSec2) , var(--clrSec-2));
     color: var(--clrPrimaryBase);
+    color: var(--clrPrimary3);
 
 }
 
 dialog[open] {
     display: grid;
+    justify-items: center;
 }
 
 
 dialog .close {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 20px;
+    top: 20px;
     background-color: unset;
     border: none;
     font-size: inherit;
@@ -40,4 +42,18 @@ dialog input::placeholder {
 
 dialog::backdrop {
     background-color: rgba(128, 128, 128, 0.63);
+}
+
+dialog .profile {
+    width: 10em;
+    border-radius: 50%;
+}
+
+dialog h3 {
+    display: flex;
+    align-items: center;
+}
+
+dialog h3 a {
+    margin-inline-start: 15px;
 }
