@@ -1,4 +1,4 @@
-<h1 align="center">🥸 Meme Generator by Mor 🥸</h1>
+<h1 align="center">🥸 Meme Generator 🥸</h1>
 <p align="center">
   <strong>Create and Share Laughter with Pure Vanilla JS and Canvas! 🎨</strong>
 </p>
